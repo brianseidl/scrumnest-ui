@@ -1,0 +1,18 @@
+projects:
+  ScrumNestAppSync-dev:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ""
+        docsFilePath: src/graphql
+        region: us-east-1
+        apiId: kqzabhbexzda3a5tut7ld3o7ii
+        maxDepth: 3
+extensions:
+  amplify:
+    version: 3
