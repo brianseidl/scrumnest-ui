@@ -44,3 +44,4 @@ amplifytools.xcconfig
 .secret-*
 .graphqlconfig.yml
 .vscode/settings.json
+src/graphql/
