@@ -44,5 +44,28 @@
         }
       }
     }
+  },
+  "egambra": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-scrumnestui-egambra-175703-authRole",
+      "UnauthRoleArn": "arn:aws:iam::144290940122:role/amplify-scrumnestui-egambra-175703-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::144290940122:role/amplify-scrumnestui-egambra-175703-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-scrumnestui-egambra-175703-deployment",
+      "UnauthRoleName": "amplify-scrumnestui-egambra-175703-unauthRole",
+      "StackName": "amplify-scrumnestui-egambra-175703",
+      "StackId": "arn:aws:cloudformation:us-east-1:144290940122:stack/amplify-scrumnestui-egambra-175703/607cfde0-8a90-11eb-b914-0a35f6ddac11",
+      "AmplifyAppId": "d29fw46wor3rii"
+    },
+    "categories": {
+      "auth": {
+        "scrumnestuid7d70395": {
+          "userPoolId": "us-east-1_o9ki34VuD",
+          "userPoolName": "ScrumNestAppSync-dev-user-pool",
+          "webClientId": "692fhs6jnng79vba1q9tpkk20p",
+          "nativeClientId": "692fhs6jnng79vba1q9tpkk20p"
+        }
+      }
+    }
   }
 }
