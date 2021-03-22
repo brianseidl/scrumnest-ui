@@ -2,6 +2,60 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Running Locally
+
+Before you can run the ScrumNest UI locally, you will first need to deploy the ScrumNest API which can be found [here](https://github.com/brianseidl/scrumnest-api).
+
+### Install Dependencies
+
+You will also want to make sure that you have NPM and the Amplify CLI installed as well.
+
+You can install the Amplify CLI via npm:
+
+```bash
+npm install -g @aws-amplify/cli
+```
+
+### Amplify
+
+#### Initialize the Amplify Project
+
+```bash
+amplify init
+```
+
+Make sure that you choose `javascript` for the app type and `react` for the framework.
+
+#### Add an Amplify Environment
+
+```bash
+amplify env add
+```
+
+Make sure that you choose `No` for using an existing environment. Also make sure to choose a unique name for the environment.
+
+#### Connect Amplify to Your API
+
+```bash
+amplify add codegen --apiId <API_ID_HERE>
+```
+
+You want to use your API ID for your AWS AppSync API.
+
+#### Push Your Amplify Configuration
+
+```bash
+amplify push
+```
+
+### Start the Project
+
+Once you have installed all of the dependences and configured your Amplify to your ScrumNest API stack, you are ready to bring up the UI locally.
+
+```bash
+npm start
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
