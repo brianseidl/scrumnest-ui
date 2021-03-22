@@ -51,3 +51,11 @@ code {
     transform: rotate(360deg);
   }
 }
+
+.navbar-brand {
+  font-size: 2rem !important;
+}
+
+.text-center {
+  margin: auto !important;
+}

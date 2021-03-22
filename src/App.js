@@ -5,6 +5,7 @@ import Amplify, { Auth, graphqlOperation } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import { AmplifySignOut, withAuthenticator } from "@aws-amplify/ui-react";
 import Layout from './components/Layout/Layout';
+import './index.css';
 
 Amplify.configure(awsconfig);
 

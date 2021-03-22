@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NavBarItem from './NavBarItem';
-import './nav.css';
 
 class NavBar extends Component {
     
@@ -53,7 +52,5 @@ class NavBar extends Component {
 
 	}
 }
-
-
  
 export default NavBar;
