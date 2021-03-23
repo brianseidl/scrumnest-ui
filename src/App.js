@@ -1,12 +1,11 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import ROUTES, { RenderRoutes } from "./routes";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter } from "react-router-dom";
 import Amplify, { Auth, graphqlOperation } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import { AmplifySignOut, withAuthenticator } from "@aws-amplify/ui-react";
-
-import Home from "./components/Home";
+import Layout from "./components/Layout/Layout";
+import "./index.css";
 
 Amplify.configure(awsconfig);
 
@@ -22,11 +21,10 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        {/* TODO: Put signout feature in layout component */}
         <AmplifySignOut />
-        <BrowserRouter>
-          <Route exact path={"/"} component={Home} />
-          {/* TODO: add routes here */}
-        </BrowserRouter>
+        <Layout />
+        <RenderRoutes routes={ROUTES} />
       </div>
     );
   }
