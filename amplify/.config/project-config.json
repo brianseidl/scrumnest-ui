@@ -1,6 +1,6 @@
 {
   "projectName": "scrumnestui",
-  "version": "3.1",
+  "version": "3.0",
   "frontend": "javascript",
   "javascript": {
     "framework": "react",
@@ -11,7 +11,5 @@
       "StartCommand": "npm run-script start"
     }
   },
-  "providers": [
-    "awscloudformation"
-  ]
+  "providers": ["awscloudformation"]
 }
