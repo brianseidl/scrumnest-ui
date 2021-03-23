@@ -9,7 +9,6 @@ class Home extends Component {
         </header>
         {/* To Do --- Getting Started Component */}
       </div>
-
     );
   }
 }

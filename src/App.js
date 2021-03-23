@@ -1,11 +1,11 @@
 import React from "react";
-import ROUTES, { RenderRoutes } from './routes';
+import ROUTES, { RenderRoutes } from "./routes";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Amplify, { Auth, graphqlOperation } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import { AmplifySignOut, withAuthenticator } from "@aws-amplify/ui-react";
-import Layout from './components/Layout/Layout';
-import './index.css';
+import Layout from "./components/Layout/Layout";
+import "./index.css";
 
 Amplify.configure(awsconfig);
 
