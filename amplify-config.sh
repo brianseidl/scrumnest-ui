@@ -24,9 +24,10 @@ AWSCLOUDFORMATIONCONFIG="{\
 }"
 
 AUTHCONFIG="{\
+\"identityPoolName\":\"ScrumNestAppSync-prod-user-pool\",\
 \"userPoolId\":\"us-east-1_7g7GJb6Za\",\
-\"webClientId\":\"802uni8f75rcptjtg2va7ljh9\",\
-\"nativeClientId\":\"35i0e4s09qakerb4m52km5v86e\"\
+\"webClientId\":\"35i0e4s09qakerb4m52km5v86e\",\
+\"nativeClientId\":\"802uni8f75rcptjtg2va7ljh9\"\
 }"
 
 CATEGORIES="{\
@@ -54,7 +55,7 @@ amplify init \
     --frontend $FRONTEND \
     --providers $PROVIDERS \
     --categories $CATEGORIES \
-    --yes | true
+    --yes
 
 
 yes "" | amplify add codegen --apiId $API_ID
