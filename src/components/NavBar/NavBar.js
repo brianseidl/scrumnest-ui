@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import NavBarItem from "./NavBarItem";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
+import { Navbar, Button, Nav } from "react-bootstrap";
 
 class NavBar extends Component {
   state = {
@@ -27,11 +30,20 @@ class NavBar extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="collapse navbar-collapse" id="navbarNav">
+      <Navbar
+        bg="light"
+        className="navbar shadow-sm p-3 mb-5 bg-white rounded"
+        expand
+      >
+        <Button variant="outline-info" onClick={this.props.toggle}>
+          <FontAwesomeIcon icon={faAlignLeft} />
+        </Button>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
           <div className="navbar-brand navbar-text pagination-centered text-center">
             Scrum Nest
           </div>
+
           <ul className="navbar-nav">
             {this.state.navBarItems.map((navBarItem) => (
               <li key={navBarItem.id + "-list"} className="nav-item px-3">
@@ -43,8 +55,8 @@ class NavBar extends Component {
               </li>
             ))}
           </ul>
-        </div>
-      </nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
 
