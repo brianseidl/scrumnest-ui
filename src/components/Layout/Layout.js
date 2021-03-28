@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import NavBar from "../NavBar/NavBar";
+import SideBar from "../SideBar/SideBar";
+import NavBarContainer from "../NavBar/NavBarContainer";
 import DialogWrapper from "../Dialogs/DialogWrapper";
 
 class Layout extends Component {
@@ -12,14 +13,23 @@ class Layout extends Component {
       title: "",
       fields: [],
     },
+    isOpen: true,
+  };
+
+  toggle = () => {
+    this.setState({ isOpen: !this.state.isOpen });
   };
 
   render() {
     return (
-      // TODO: Add Sidebar component
       <React.Fragment>
-        <div>
-          <NavBar showDialog={this.handleShowDialog} />
+        <div className="App wrapper">
+          <SideBar toggle={this.toggle} isOpen={this.state.isOpen} />
+          <NavBarContainer
+            toggle={this.toggle}
+            isOpen={this.state.isOpen}
+            showDialog={this.handleShowDialog}
+          />
         </div>
 
         {this.state.dialog.show && (

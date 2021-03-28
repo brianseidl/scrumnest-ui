@@ -45,3 +45,4 @@ amplifytools.xcconfig
 .graphqlconfig.yml
 .vscode/settings.json
 src/graphql/
+.vscode/launch.json

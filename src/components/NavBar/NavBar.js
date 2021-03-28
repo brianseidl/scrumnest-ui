@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import NavBarItem from "./NavBarItem";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
+import { Navbar, Button, Nav } from "react-bootstrap";
 import { Redirect } from "react-router";
 
 class NavBar extends Component {
@@ -34,16 +37,23 @@ class NavBar extends Component {
     }
 
     return (
-      <React.Fragment>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <div className="navbar-collapse navbar-padding">
-            <div
-              id="scrum-nest-title"
-              className="navbar-brand navbar-text text-center navbar-center-title"
-            >
-              Scrum Nest
-            </div>
+      <Navbar
+        bg="light"
+        className="navbar shadow-sm p-3 mb-5 bg-white rounded"
+        expand
+      >
+        <Button variant="outline-info" onClick={this.props.toggle}>
+          <FontAwesomeIcon icon={faAlignLeft} />
+        </Button>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <div
+            id="scrum-nest-title"
+            className="navbar-brand navbar-text pagination-centered text-center navbar-center-title"
+          >
+            Scrum Nest
           </div>
+
           <ul className="navbar-nav">
             {this.state.navBarItems.map((navBarItem) => (
               <li
@@ -58,8 +68,8 @@ class NavBar extends Component {
               </li>
             ))}
           </ul>
-        </nav>
-      </React.Fragment>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
 
