@@ -89,11 +89,11 @@ a:focus {
   background: #2d3646 !important;
 }
 
-.nav-item:hover {
+/* .nav-item:hover {
   background: #313b4c;
   color: #fff;
   transition: 0.2s;
-}
+} */
 
 .nav-item .svg-inline--fa {
   color: inherit;
@@ -128,28 +128,62 @@ li a.dropdown-toggle::after {
   body {
     overflow: hidden;
   }
-
-  .navbarContainer.is-open {
-    /*margin-left: 100%;*/
-    display: none;
-    transition: all 0.5s;
-  }
-
-  .sidebar.is-open {
-    min-width: 100%;
-    max-width: 100%;
-    margin-left: 0;
-    transition: all 0.5s, height 0s;
-    height: 100vh !important;
-  }
-
-  .sidebar.is-open > .sidebar-header button {
-    display: block;
-  }
-
-  li a.dropdown-toggle::after {
-    display: inline-block;
-    position: relative;
-    left: 68%;
-  }
 }
+
+.navbarContainer.is-open {
+  transition: all 0.5s;
+}
+
+.sidebar.is-open {
+  min-width: 13%;
+  max-width: 13%;
+  margin-left: 0;
+  transition: all 0.5s, height 0s;
+  height: 100vh !important;
+}
+
+.sidebar.is-open > .sidebar-header button {
+  display: block;
+}
+
+li a.dropdown-toggle::after {
+  display: inline-block;
+  position: relative;
+  left: 68%;
+}
+
+/* NavBar Classes */
+
+.navbar-text#scrum-nest-title {
+  font-size: 2rem;
+}
+
+.navbar-nav {
+  z-index: 1;
+}
+
+.navbar-center-title {
+  position: relative;
+  font-size: 2rem;
+  left: 4%;
+}
+
+.navbar-padding {
+  padding: 1.75rem;
+}
+
+.navbar-icons {
+  cursor: pointer;
+}
+
+/* End NavBar Classes */
+
+/* Dialog Classes */
+
+/* TO-DO Dialog CSS Classes Here */
+
+/* End Dialog Classes */
+
+/* Form Control Classes */
+
+/* End Form Control Classes */

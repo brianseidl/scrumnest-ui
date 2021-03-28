@@ -4,6 +4,11 @@ import { Container } from "react-bootstrap";
 import NavBar from "./NavBar";
 
 class NavBarContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(props);
+  }
+
   render() {
     return (
       <Container
@@ -12,7 +17,7 @@ class NavBarContainer extends React.Component {
           "is-open": this.props.isOpen,
         })}
       >
-        <NavBar toggle={this.props.toggle} />
+        <NavBar toggle={this.props.toggle} showDialog={this.props.showDialog} />
       </Container>
     );
   }
