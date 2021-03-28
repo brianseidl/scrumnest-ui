@@ -52,10 +52,40 @@ code {
   }
 }
 
-.navbar-brand {
-  font-size: 2rem !important;
+/* NavBar Classes */
+
+.navbar-text#scrum-nest-title {
+  font-size: 2rem;
 }
 
-.text-center {
-  margin: auto !important;
+.navbar-nav {
+  z-index: 1;
 }
+
+.navbar-center-title {
+  font-size: 2rem;
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+.navbar-padding {
+  padding: 1.75rem;
+}
+
+.navbar-icons {
+  cursor: pointer;
+}
+
+/* End NavBar Classes */
+
+/* Dialog Classes */
+
+/* TO-DO Dialog CSS Classes Here */
+
+/* End Dialog Classes */
+
+/* Form Control Classes */
+
+/* End Form Control Classes */
