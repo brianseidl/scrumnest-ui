@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
 import { Navbar, Button } from "react-bootstrap";
 import { Redirect } from "react-router";
-import { navBarItemsModel, dialogData } from './NavBarConstants';
+import { navBarItemsModel, dialogData } from "./NavBarConstants";
 
 class NavBar extends Component {
   state = {
@@ -72,7 +72,6 @@ class NavBar extends Component {
       this.setState({ redirect: true, redirectRoute: navBarItem.route });
     }
   };
-
 }
 
 export default NavBar;

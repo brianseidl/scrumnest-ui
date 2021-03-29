@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SideBar from "../SideBar/SideBar";
 import DialogWrapper from "../Dialogs/DialogWrapper";
 import ROUTES, { RenderRoutes } from "../../routes";
-import Footer from '../Footer/Footer';
+import Footer from "../Footer/Footer";
 import { Container } from "react-bootstrap";
 import classNames from "classnames";
 import NavBar from "../NavBar/NavBar";
@@ -33,7 +33,8 @@ class Layout extends Component {
             fluid
             className={classNames("navbarContainer", {
               "is-open": this.state.isOpen,
-            })}>
+            })}
+          >
             <NavBar toggle={this.toggle} showDialog={this.handleShowDialog} />
             <RenderRoutes routes={ROUTES} />
           </Container>
