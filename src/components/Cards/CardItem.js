@@ -4,7 +4,11 @@ const CardItem = ({ cardItem, onClicked }) => {
   return (
     <React.Fragment>
       <div className="card h-100">
-        <img className="card-img-top" src={cardItem.imgSrc} alt={cardItem.alt} />
+        <img
+          className="card-img-top"
+          src={cardItem.imgSrc}
+          alt={cardItem.alt}
+        />
         <div className="card-body">
           <h4 className="card-title">{cardItem.title}</h4>
           <p className="card-text">{cardItem.body}</p>
