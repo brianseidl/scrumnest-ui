@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import SideBar from "../SideBar/SideBar";
-import NavBarContainer from "../NavBar/NavBarContainer";
 import DialogWrapper from "../Dialogs/DialogWrapper";
 import ROUTES, { RenderRoutes } from "../../routes";
 import Footer from '../Footer/Footer';
+import { Container } from "react-bootstrap";
+import classNames from "classnames";
+import NavBar from "../NavBar/NavBar";
 
 class Layout extends Component {
   state = {
@@ -25,14 +27,18 @@ class Layout extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="App wrapper">
+        <div className="App">
           <SideBar toggle={this.toggle} isOpen={this.state.isOpen} />
-          <NavBarContainer
-            toggle={this.toggle}
-            isOpen={this.state.isOpen}
-            showDialog={this.handleShowDialog}
-          />
+          <Container
+            fluid
+            className={classNames("navbarContainer", {
+              "is-open": this.state.isOpen,
+            })}>
+            <NavBar toggle={this.toggle} showDialog={this.handleShowDialog} />
+            <RenderRoutes routes={ROUTES} />
+          </Container>
         </div>
+        <Footer />
 
         {this.state.dialog.show && (
           <DialogWrapper
@@ -40,8 +46,6 @@ class Layout extends Component {
             onHide={this.handleHideDialog}
           />
         )}
-        <RenderRoutes routes={ROUTES} />
-        <Footer />
       </React.Fragment>
     );
   }

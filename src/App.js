@@ -21,7 +21,7 @@ class App extends React.Component {
     return (
       <div>
         {/* TODO: Put signout feature in layout component */}
-        <AmplifySignOut />
+        {/* <AmplifySignOut /> */}
         <Layout />
       </div>
     );

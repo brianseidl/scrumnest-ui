@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NavBarItem from "./NavBarItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
-import { Navbar, Button, Nav } from "react-bootstrap";
+import { Navbar, Button } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { navBarItemsModel, dialogData } from './NavBarConstants';
 
@@ -21,7 +21,7 @@ class NavBar extends Component {
     return (
       <Navbar
         bg="light"
-        className="navbar shadow-sm p-3 mb-5 bg-white rounded"
+        className="navbar shadow-sm p-3 mb-2 bg-white rounded"
         expand
       >
         <Button variant="outline-info" onClick={this.props.toggle}>
