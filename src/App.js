@@ -1,5 +1,4 @@
 import React from "react";
-import ROUTES, { RenderRoutes } from "./routes";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Amplify, { Auth, graphqlOperation } from "aws-amplify";
 import awsconfig from "./aws-exports";
@@ -22,9 +21,8 @@ class App extends React.Component {
     return (
       <div>
         {/* TODO: Put signout feature in layout component */}
-        <AmplifySignOut />
+        {/* <AmplifySignOut /> */}
         <Layout />
-        <RenderRoutes routes={ROUTES} />
       </div>
     );
   }

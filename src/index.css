@@ -1,38 +1,28 @@
 .App {
   display: flex;
   width: 100%;
-  align-items: stretch;
+  position: relative;
 }
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 @import "https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,500,600,700";
-
-body {
-  /*font-family: 'Poppins', sans-serif;*/
-  font-family: "Nunito Sans", sans-serif;
-  /*background: #fafafa;*/
-  background-color: #f5f9fc;
-}
-
-a,
-a:hover,
-a:focus {
-  color: inherit;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-
-.navbar-brand {
-  font-size: 2rem !important;
-}
 
 .text-center {
   margin: auto !important;
 }
 
 /* ---------------------------------------------------
-    SIDEBAR STYLE
+    SIDEBAR CLASSES
 ----------------------------------------------------- */
+
+a.nav-link {
+  color: white;
+}
+
+a.nav-link:hover {
+  color: gray;
+}
+
 .sidebar {
   min-width: 250px;
   max-width: 250px;
@@ -72,29 +62,6 @@ a:focus {
   background: #313b4c;
 }
 
-.nav-item {
-  /*color: #ced4da;*/
-  color: #adb5bd;
-  font-weight: 300;
-  font-size: 25px;
-}
-
-.nav-item.open {
-  color: #e9ecef;
-  background: #313b4c;
-}
-
-.nav-item.active {
-  color: #e9ecef;
-  background: #2d3646 !important;
-}
-
-/* .nav-item:hover {
-  background: #313b4c;
-  color: #fff;
-  transition: 0.2s;
-} */
-
 .nav-item .svg-inline--fa {
   color: inherit;
 }
@@ -118,20 +85,9 @@ li a.dropdown-toggle::after {
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
-.navbarContainer {
-  padding: 20px;
-  margin-left: 0;
-  height: 100vh;
-}
 
-@media only screen and (max-width: 575.98px) {
-  body {
-    overflow: hidden;
-  }
-}
-
-.navbarContainer.is-open {
-  transition: all 0.5s;
+.container-fluid {
+  height: fit-content;
 }
 
 .sidebar.is-open {
@@ -139,7 +95,6 @@ li a.dropdown-toggle::after {
   max-width: 13%;
   margin-left: 0;
   transition: all 0.5s, height 0s;
-  height: 100vh !important;
 }
 
 .sidebar.is-open > .sidebar-header button {
@@ -153,6 +108,20 @@ li a.dropdown-toggle::after {
 }
 
 /* NavBar Classes */
+
+.nav-item {
+  color: #354052;
+  font-weight: 300;
+  font-size: 25px;
+}
+
+.navbar-brand {
+  font-size: 2rem !important;
+}
+
+.navbarContainer.is-open {
+  transition: all 0.5s;
+}
 
 .navbar-text#scrum-nest-title {
   font-size: 2rem;
