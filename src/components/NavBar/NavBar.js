@@ -1,29 +1,11 @@
 import React, { Component } from "react";
 import NavBarItem from "./NavBarItem";
 import { Redirect } from "react-router";
+import { navBarItemsModel, dialogData } from './NavBarConstants';
 
 class NavBar extends Component {
   state = {
-    navBarItems: [
-      {
-        id: 1,
-        route: "/teams",
-        icon: "fa fa-users",
-        displayDialogComponent: false,
-      },
-      {
-        id: 2,
-        route: null,
-        icon: "fa fa-bars",
-        displayDialogComponent: true,
-      },
-      {
-        id: 3,
-        route: "/",
-        icon: "fa fa-home",
-        displayDialogComponent: false,
-      },
-    ],
+    navBarItems: navBarItemsModel,
     redirect: false,
     redirectRoute: "",
   };
@@ -75,43 +57,12 @@ class NavBar extends Component {
 
   handleClicked = (navBarItem) => {
     if (navBarItem.displayDialogComponent) {
-      const dialogData = this.getOptionDialogData();
       this.props.showDialog(dialogData);
     } else if (navBarItem.route) {
       this.setState({ redirect: true, redirectRoute: navBarItem.route });
     }
   };
 
-  /**
-   * Retrieves static dialog data
-   */
-  getOptionDialogData() {
-    const dialogData = {
-      dialogType: "optionDialog",
-      closeButton: true,
-      title: "Choose an Action",
-      fields: [
-        {
-          type: "radio",
-          id: "Edit-Board",
-          label: "Edit Board",
-          value: {
-            route: "/board",
-          },
-        },
-        {
-          type: "radio",
-          id: "View-Epics",
-          label: "View Epics",
-          value: {
-            route: "/epics",
-          },
-        },
-      ],
-    };
-
-    return dialogData;
-  }
 }
 
 export default NavBar;

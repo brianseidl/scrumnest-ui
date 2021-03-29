@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import NavBar from "../NavBar/NavBar";
 import DialogWrapper from "../Dialogs/DialogWrapper";
+import ROUTES, { RenderRoutes } from "../../routes";
+import Footer from '../Footer/Footer';
 
 class Layout extends Component {
   state = {
@@ -28,6 +30,8 @@ class Layout extends Component {
             onHide={this.handleHideDialog}
           />
         )}
+        <RenderRoutes routes={ROUTES} />
+        <Footer />
       </React.Fragment>
     );
   }
