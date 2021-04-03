@@ -30,11 +30,18 @@ AUTHCONFIG="{\
 \"nativeClientId\":\"802uni8f75rcptjtg2va7ljh9\"\
 }"
 
+STORAGE="{\
+\"bucketName\":\"337451035854-scrumnest-files-prod\",\
+\"region\":\"us-east-1\"\
+}"
+
 CATEGORIES="{\
-\"auth\":$AUTHCONFIG\
+\"auth\":$AUTHCONFIG,\
+\"storage\":$STORAGE\
 }"
 
 AMPLIFY="{\
+\"appId\":\"d2axvxx4cgym13\",\
 \"projectName\":\"scrumnestui\",\
 \"envName\":\"prod\",\
 \"defaultEditor\":\"code\"\
@@ -50,16 +57,14 @@ PROVIDERS="{\
 \"awscloudformation\":$AWSCLOUDFORMATIONCONFIG\
 }"
 
-amplify init \
+amplify pull \
     --amplify $AMPLIFY \
     --frontend $FRONTEND \
     --providers $PROVIDERS \
     --categories $CATEGORIES \
     --yes
 
-
 yes "" | amplify add codegen --apiId $API_ID
-yes "" | amplify push
 
 amplify status
 
