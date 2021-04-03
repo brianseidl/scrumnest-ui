@@ -57,7 +57,7 @@ class CreateBoardDialog extends Component {
             >
               Finish
             </Button>
-            <Button variant="primary" onClick={() => this.props.onClose()}>
+            <Button variant="secondary" onClick={() => this.props.onClose()}>
               Discard
             </Button>
           </Modal.Footer>
