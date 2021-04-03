@@ -60,3 +60,6 @@ amplify init \
 
 yes "" | amplify add codegen --apiId $API_ID
 yes "" | amplify push
+
+amplify status
+

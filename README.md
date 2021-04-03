@@ -42,6 +42,14 @@ amplify add codegen --apiId <API_ID_HERE>
 
 You want to use your API ID for your AWS AppSync API.
 
+### Configure S3 File Upload Bucket
+
+```bash
+amplify import storage
+```
+
+Make sure you select the bucket that was created by the API. `XXX-scrumnest-files-dev`
+
 #### Push Your Amplify Configuration
 
 ```bash

@@ -7,5 +7,13 @@
       "dependsOn": [],
       "customAuth": false
     }
+  },
+  "storage": {
+    "scrumnestui865c2c10": {
+      "service": "S3",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
   }
 }

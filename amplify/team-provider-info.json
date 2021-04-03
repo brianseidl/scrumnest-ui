@@ -19,6 +19,12 @@
           "webClientId": "7q060ri4fk7di549e7kpms9aee",
           "nativeClientId": "48hnhghv770a2786l5oprid8ff"
         }
+      },
+      "storage": {
+        "scrumnestui865c2c10": {
+          "bucketName": "337451035854-scrumnest-files-dev",
+          "region": "us-east-1"
+        }
       }
     }
   },
@@ -41,6 +47,12 @@
           "userPoolName": "ScrumNestAppSync-prod-user-pool",
           "webClientId": "35i0e4s09qakerb4m52km5v86e",
           "nativeClientId": "802uni8f75rcptjtg2va7ljh9"
+        }
+      },
+      "storage": {
+        "scrumnestui865c2c10": {
+          "bucketName": "337451035854-scrumnest-files-prod",
+          "region": "us-east-1"
         }
       }
     }
