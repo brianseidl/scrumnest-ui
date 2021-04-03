@@ -28,7 +28,11 @@ class Layout extends Component {
     return (
       <React.Fragment>
         <div className="App">
-          <SideBar toggle={this.toggle} isOpen={this.state.isOpen} />
+          <SideBar
+            toggle={this.toggle}
+            isOpen={this.state.isOpen}
+            showDialog={this.handleShowDialog}
+          />
           <Container
             fluid
             className={classNames("navbarContainer", {

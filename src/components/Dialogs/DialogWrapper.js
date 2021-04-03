@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import OptionDialog from "./OptionDialog";
 import { Redirect } from "react-router";
+import CreateBoardDialog from "./CreateBoardDialog";
 
 /**
  * Wrapper component around various dialog components
@@ -10,11 +11,20 @@ class DialogWrapper extends Component {
     show: this.props.dialog.show,
     redirect: false,
     redirectRoute: "",
+    value: {},
   };
 
   render() {
     if (this.state.redirect) {
-      return <Redirect push to={this.state.redirectRoute} />;
+      return (
+        <Redirect
+          push
+          to={{
+            pathname: this.state.redirectRoute,
+            state: this.state.value,
+          }}
+        />
+      );
     }
 
     switch (this.props.dialog.dialogType) {
@@ -40,7 +50,13 @@ class DialogWrapper extends Component {
         break;
       }
       case "createBoardDialog": {
-        // TO-DO: createBoardDialog instance here
+        return (
+          <CreateBoardDialog
+            dialog={this.props.dialog}
+            onClose={this.handleCloseDialog}
+            onSubmit={this.handleSubmitDialog}
+          />
+        );
         break;
       }
       default: {
@@ -67,7 +83,11 @@ class DialogWrapper extends Component {
 
   handleSubmitDialog = (value) => {
     if (value.route) {
-      this.setState({ redirectRoute: value.route, redirect: true });
+      this.setState({
+        redirectRoute: value.route,
+        redirect: true,
+        value: value,
+      });
     } else {
       this.setState({ show: false });
     }

@@ -145,6 +145,20 @@ li a.dropdown-toggle::after {
   cursor: pointer;
 }
 
+/* createDialogLabel */
+.createDialogLabel {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.custom-control2 {
+  padding: 0px;
+  width: 450px;
+  margin-top: -25px;
+  margin-bottom: 10px;
+}
+
 /* End NavBar Classes */
 
 /* Dialog Classes */
