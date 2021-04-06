@@ -11,6 +11,18 @@
   margin: auto !important;
 }
 
+/* General Classes */
+
+.selectable-item {
+  cursor: pointer;
+}
+
+.selectable-item:hover {
+  color: gray;
+}
+
+/* End General Classes */
+
 /* ---------------------------------------------------
     SIDEBAR CLASSES
 ----------------------------------------------------- */
@@ -115,6 +127,14 @@ li a.dropdown-toggle::after {
   font-size: 25px;
 }
 
+.nav-item .dropdown {
+  color: white;
+}
+
+#sidebar-container .nav-item {
+  color: white;
+}
+
 .navbar-brand {
   font-size: 2rem !important;
 }
@@ -146,6 +166,7 @@ li a.dropdown-toggle::after {
 }
 
 /* createDialogLabel */
+
 .createDialogLabel {
   font-size: 20px;
   margin-top: 10px;
@@ -161,6 +182,18 @@ li a.dropdown-toggle::after {
 
 /* End NavBar Classes */
 
+/* Dropdown Classes */
+
+.dropdown-item {
+  text-align: center;
+  display: flex;
+}
+
+.dropdown-item-icon {
+  padding-right: 0.5rem;
+}
+/* End Dropdown Classes */
+
 /* Dialog Classes */
 
 /* TO-DO Dialog CSS Classes Here */
@@ -170,3 +203,55 @@ li a.dropdown-toggle::after {
 /* Form Control Classes */
 
 /* End Form Control Classes */
+
+/* Amplify Classes */
+
+:host {
+  --padding: 0.2rem;
+}
+
+.dropdown-item :root {
+  --amplify-primary-color: white;
+  --amplify-primary-tint: gray;
+  --amplify-primary-shade: gray;
+  --amplify-primary-contrast: black;
+  /* --amplify-font-family: "DM Sans", sans-serif; */
+}
+
+/* End Amplify Classes */
+
+/* Board Classes */
+
+.container-height {
+  height: 75rem;
+}
+
+.max-height {
+  height: 100%;
+}
+
+#board-container.container .row {
+  height: 100%;
+}
+
+#board-container.container .col {
+  height: 100%;
+  border: 0.5px dashed #007bff;
+}
+
+#board-container.container {
+  max-width: none;
+  padding: 1.5rem;
+}
+
+#board-container-title h5 {
+  font-size: 2.5rem;
+  display: inline-block;
+  padding-right: 1rem;
+}
+
+#board-container-title {
+  border-bottom: 1px solid #007bff;
+}
+
+/* End Board Classes */

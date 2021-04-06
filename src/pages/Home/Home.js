@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { cardItems } from "./HomePageConstants";
 import Cards from "../../components/Cards/Cards";
 class Home extends Component {
+
   render() {
     return (
       <React.Fragment>
@@ -62,12 +63,6 @@ class Home extends Component {
       </React.Fragment>
     );
   }
-
-  /**
-   * Notes:
-   * - Check for if a user has any boards... make API call to receive the data...
-   * - Display a "Getting Started" component... can be static and include images, documentation, key information, etc.
-   */
 }
 
 export default Home;

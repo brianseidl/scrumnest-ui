@@ -7,8 +7,8 @@ import Form from "react-bootstrap/Form";
 class CreateBoardDialog extends Component {
   state = {
     value: {
-      route: "/board",
-      textFieldValue: "",
+      route: "/board", // Static variable... subject to change potentially
+      dialogTitle: "",
     },
   };
 
@@ -68,9 +68,8 @@ class CreateBoardDialog extends Component {
 
   handleInputChange(element) {
     this.setState({
-      value: { textFieldValue: element.target.value, route: "/board" },
+      value: { ...this.state.value, dialogTitle: element.target.value },
     });
-    console.warn(this.state);
   }
 }
 

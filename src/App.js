@@ -1,14 +1,14 @@
-import React from "react";
+import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Amplify, { Auth, graphqlOperation } from "aws-amplify";
+import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
-import { AmplifySignOut, withAuthenticator } from "@aws-amplify/ui-react";
+import { withAuthenticator } from "@aws-amplify/ui-react";
 import Layout from "./components/Layout/Layout";
 import "./index.css";
 
 Amplify.configure(awsconfig);
+class App extends Component {
 
-class App extends React.Component {
   async componentDidMount() {
     const { username } = await Auth.currentAuthenticatedUser();
 
@@ -20,8 +20,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {/* TODO: Put signout feature in layout component */}
-        {/* <AmplifySignOut /> */}
         <Layout />
       </div>
     );

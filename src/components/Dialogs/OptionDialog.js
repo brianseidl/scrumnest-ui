@@ -51,7 +51,7 @@ class OptionDialog extends Component {
             >
               OK
             </Button>
-            <Button variant="primary" onClick={() => this.props.onClose()}>
+            <Button variant="secondary" onClick={() => this.props.onClose()}>
               Cancel
             </Button>
           </Modal.Footer>
