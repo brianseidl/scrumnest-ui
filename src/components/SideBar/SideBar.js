@@ -9,22 +9,22 @@ import { Nav, Dropdown } from "react-bootstrap";
 import classNames from "classnames";
 import { createBoardData } from "./SideBarConstant";
 import { AmplifySignOut } from "@aws-amplify/ui-react";
-import { API, graphqlOperation } from 'aws-amplify';
-import * as queries from '../../graphql/queries';
+import { API, graphqlOperation } from "aws-amplify";
+import * as queries from "../../graphql/queries";
 
 class SideBar extends Component {
-
   state = {
-    nests: []
-  }
+    nests: [],
+  };
 
   customToggle = React.forwardRef(({ children, onClick }, ref) => (
     <div
-    ref={ref}
-    onClick={(e) => {
-      e.preventDefault();
-      onClick(e);
-    }}>
+      ref={ref}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(e);
+      }}
+    >
       {children}
     </div>
   ));
@@ -36,7 +36,11 @@ class SideBar extends Component {
         <div className="profile-view">
           <Dropdown>
             <Dropdown.Toggle as={this.customToggle}>
-              <FontAwesomeIcon className="selectable-item" icon={faUserCircle} size="8x" />
+              <FontAwesomeIcon
+                className="selectable-item"
+                icon={faUserCircle}
+                size="8x"
+              />
             </Dropdown.Toggle>
             <Dropdown.Menu align="right" className="align-items-center">
               {/* For now, comment the settings drop down until we have a set plan for it going forward */}
@@ -44,7 +48,7 @@ class SideBar extends Component {
                 <i className={'fa fa-cog mr-3'}></i>Settings
               </Dropdown.Item> */}
               <Dropdown.Item eventKey="2" className="m-1 align-items-center">
-                <i className={'fa fa-sign-out'}></i>
+                <i className={"fa fa-sign-out"}></i>
                 <AmplifySignOut />
               </Dropdown.Item>
             </Dropdown.Menu>
@@ -71,7 +75,10 @@ class SideBar extends Component {
                 {this.state.nests.map((nest, index) => (
                   <Dropdown.Item key={index} eventKey={index}>
                     <div>
-                      <FontAwesomeIcon icon={faClipboardList} className="mr-3" />
+                      <FontAwesomeIcon
+                        icon={faClipboardList}
+                        className="mr-3"
+                      />
                       {nest.name}
                     </div>
                   </Dropdown.Item>
@@ -79,7 +86,6 @@ class SideBar extends Component {
               </Dropdown.Menu>
             </Dropdown>
           </Nav.Item>
-
         </Nav>
       </div>
     );
@@ -90,24 +96,19 @@ class SideBar extends Component {
   }
 
   getNestsForUser() {
-    
-    API.graphql(graphqlOperation(queries.nests)).then(
-      value => {
-        if(value.data.nests) {
-          const nests = value.data.nests.map(nest => this.parseNest(nest));
-          this.setState({ nests: nests });
-        }
+    API.graphql(graphqlOperation(queries.nests)).then((value) => {
+      if (value.data.nests) {
+        const nests = value.data.nests.map((nest) => this.parseNest(nest));
+        this.setState({ nests: nests });
       }
-    );
-
+    });
   }
-  
+
   handleClicked = (route) => {};
 
   parseNest(nest) {
-    return { name: nest.name, nestId: nest.nestId }
+    return { name: nest.name, nestId: nest.nestId };
   }
-
 }
 
 export default SideBar;

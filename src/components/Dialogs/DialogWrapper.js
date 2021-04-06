@@ -13,7 +13,6 @@ class DialogWrapper extends Component {
   };
 
   render() {
-
     switch (this.props.dialog.dialogType) {
       case "optionDialog": {
         return (
@@ -69,21 +68,19 @@ class DialogWrapper extends Component {
 
   handleSubmitDialog = (value) => {
     if (value.route) {
-      
       this.props.history.push({
         pathname: value.route,
         state: value,
       });
 
-      this.setState({ ...this.state, redirect: true })
-    } 
-    else {
+      this.setState({ ...this.state, redirect: true });
+    } else {
       this.setState({ ...this.state, show: false });
     }
   };
 
   resetRedirectState() {
-    this.setState({ ...this.state, redirect: false, });
+    this.setState({ ...this.state, redirect: false });
   }
 
   resetShowState() {

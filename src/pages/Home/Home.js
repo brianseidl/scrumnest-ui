@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { cardItems } from "./HomePageConstants";
 import Cards from "../../components/Cards/Cards";
 class Home extends Component {
-
   render() {
     return (
       <React.Fragment>

@@ -1,32 +1,44 @@
-import React, { Component } from 'react';
-import UserStoryCard from './UserStoryCard';
-import { Droppable } from 'react-beautiful-dnd';
+import React, { Component } from "react";
+import UserStoryCard from "./UserStoryCard";
+import { Droppable } from "react-beautiful-dnd";
 
 class UserStoryContainer extends Component {
-  state = {  }
-  
-  render() { 
+  state = {};
+
+  render() {
     return (
       <React.Fragment>
         <Droppable droppableId={this.props.columnProperties.id}>
           {(provided, snapshot) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
               <div id="board-container-title" className="text-center">
-                <h5 className="display-4 text-black">{this.props.columnProperties.title}</h5>
+                <h5 className="display-4 text-black">
+                  {this.props.columnProperties.title}
+                </h5>
                 {this.props.columnProperties.showAddButton && (
-                  <i className="fa fa-plus-square-o" style={{ fontSize: "30px", cursor: "pointer" }} aria-hidden="true"></i>
+                  <i
+                    className="fa fa-plus-square-o"
+                    style={{ fontSize: "30px", cursor: "pointer" }}
+                    aria-hidden="true"
+                  ></i>
                 )}
               </div>
-              {this.props.columnProperties.userStories.map((userStory, index) => (
-                <div>
-                  <br />
-                  <UserStoryCard key={userStory.id} userStory={userStory} index={index} />
-                </div>
-              ))}
+              {this.props.columnProperties.userStories.map(
+                (userStory, index) => (
+                  <div key={userStory.id}>
+                    <br />
+                    <UserStoryCard
+                      userStory={userStory}
+                      index={index}
+                    />
+                  </div>
+                )
+              )}
+              {provided.placeholder}
             </div>
           )}
-      </Droppable>
-    </React.Fragment>  
+        </Droppable>
+      </React.Fragment>
     );
   }
 }

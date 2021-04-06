@@ -8,7 +8,6 @@ import "./index.css";
 
 Amplify.configure(awsconfig);
 class App extends Component {
-
   async componentDidMount() {
     const { username } = await Auth.currentAuthenticatedUser();
 

@@ -68,9 +68,12 @@ class NavBar extends Component {
   handleClicked = (navBarItem) => {
     if (navBarItem.displayDialogComponent) {
       this.props.showDialog(dialogData);
-    } 
-    else if (navBarItem.route) {
-      this.setState({ ...this.state, redirect: true, redirectRoute: navBarItem.route });
+    } else if (navBarItem.route) {
+      this.setState({
+        ...this.state,
+        redirect: true,
+        redirectRoute: navBarItem.route,
+      });
     }
   };
 }
