@@ -11,6 +11,7 @@ import { createBoardData } from "./SideBarConstant";
 import { AmplifySignOut } from "@aws-amplify/ui-react";
 import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
+import { withRouter } from "react-router-dom";
 
 class SideBar extends Component {
   state = {
@@ -74,7 +75,7 @@ class SideBar extends Component {
               <Dropdown.Menu align="right">
                 {this.state.nests.map((nest, index) => (
                   <Dropdown.Item key={index} eventKey={index}>
-                    <div>
+                    <div onClick={() => this.handleClicked(nest)}>
                       <FontAwesomeIcon
                         icon={faClipboardList}
                         className="mr-3"
@@ -104,11 +105,18 @@ class SideBar extends Component {
     });
   }
 
-  handleClicked = (route) => {};
+  handleClicked(nest) {
+    if (nest.nestId) {
+      this.props.history.push({
+        pathname: "/board", // Can keep as static for now...
+        state: nest,
+      });
+    }
+  }
 
   parseNest(nest) {
     return { name: nest.name, nestId: nest.nestId };
   }
 }
 
-export default SideBar;
+export default withRouter(SideBar);

@@ -6,6 +6,8 @@ import { Draggable } from "react-beautiful-dnd";
 class UserStoryCard extends Component {
   state = {};
 
+  DESCRIPTION_LENGTH = 150;
+
   render() {
     return (
       <Draggable
@@ -21,19 +23,39 @@ class UserStoryCard extends Component {
           >
             <Card>
               <Card.Body>
-                <Card.Title>{this.props.userStory.title}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
+                <Card.Title className="user-story-title-text">
+                  {this.props.userStory.title}
+                </Card.Title>
+                <Card.Subtitle className="mb-2 text-muted user-story-subtitle-text">
                   Assigned: {this.props.userStory.assignee}
                 </Card.Subtitle>
-                <Card.Text>{this.props.userStory.description}</Card.Text>
-                <Button variant="primary">View</Button>{" "}
-                <Button variant="danger">Delete</Button>
+                <Card.Text className="user-story-desc-text">
+                  {this.displayDescription(this.props.userStory.description)}
+                </Card.Text>
+                <Button className="user-story-desc-text" variant="primary">
+                  View
+                </Button>{" "}
+                <Button className="user-story-desc-text" variant="danger">
+                  Delete
+                </Button>
               </Card.Body>
             </Card>
           </div>
         )}
       </Draggable>
     );
+  }
+
+  /**
+   * Trims the description if we are over the allotted 150 characters, otherwise just returns the description
+   * as presently set.
+   * @param {string} description
+   * @returns
+   */
+  displayDescription(description) {
+    return description.length > 150
+      ? `${description.substr(0, this.DESCRIPTION_LENGTH).trim()}...`
+      : description;
   }
 }
 

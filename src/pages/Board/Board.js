@@ -5,32 +5,74 @@ import Col from "react-bootstrap/Col";
 import UserStoryContainer from "../../components/UserStory/UserStoryContainer";
 import { NEST_MODEL } from "./BoardConstants";
 import { DragDropContext } from "react-beautiful-dnd";
+import { API, graphqlOperation } from "aws-amplify";
+import * as queries from "../../graphql/queries";
 
 class Board extends Component {
   state = {
+    nestName: "",
+    nestId: "",
     nest: NEST_MODEL,
   };
 
   render() {
     return (
-      <Container id="board-container" className="container-height">
-        <Row>
-          <DragDropContext onDragEnd={this.handleOnDragEnd}>
-            {this.state.nest.map((column) => (
-              <Col key={column.id}>
-                <UserStoryContainer key={column.id} columnProperties={column} />
-              </Col>
-            ))}
-          </DragDropContext>
-        </Row>
-      </Container>
+      <React.Fragment>
+        <h1 className="display-6 text-black text-center nest-title">
+          Welcome to the {this.state.nestName} Nest!
+        </h1>
+        <Container id="board-container" className="container-height">
+          <Row>
+            <DragDropContext onDragEnd={this.handleOnDragEnd}>
+              {this.state.nest.map((column) => (
+                <Col key={column.id} className="board-column-properties">
+                  <div id="board-container-title" className="text-center">
+                    <h5 className="display-4 text-black">{column.title}</h5>
+                    {column.showAddButton && (
+                      <i
+                        className="fa fa-plus-square-o"
+                        style={{ fontSize: "30px", cursor: "pointer" }}
+                        aria-hidden="true"
+                      ></i>
+                    )}
+                  </div>
+                  <UserStoryContainer
+                    key={column.id}
+                    columnProperties={column}
+                  />
+                </Col>
+              ))}
+            </DragDropContext>
+          </Row>
+        </Container>
+      </React.Fragment>
     );
   }
 
-  // Comment out for now to avoid warnings, will need to implement in future
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+    // Temporarily, we can only get nest data from the props.location property (signifying we routed to the board) may change in the future
+    if (!!props.location) {
+      this.state = {
+        ...this.state,
+        nestId: props.location.state.nestId,
+        nestName: props.location.state.name,
+      };
+    }
+  }
+
+  componentDidMount() {
+    this.getNestData();
+  }
+
+  getNestData() {
+    API.graphql(
+      graphqlOperation(queries.nest, { nestId: this.state.nestId })
+    ).then((value) => {
+      // console.log('NEST DATA IS: ', value);
+      // TO-DO: Logic in here to set the neccessary state for the nest
+    });
+  }
 
   handleOnDragEnd = (result) => {
     if (!result.destination) {

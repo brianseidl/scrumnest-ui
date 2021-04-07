@@ -245,13 +245,45 @@ li a.dropdown-toggle::after {
 }
 
 #board-container-title h5 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   display: inline-block;
   padding-right: 1rem;
 }
 
 #board-container-title {
   border-bottom: 1px solid #007bff;
+}
+
+.board-column-properties {
+  width: 10% !important;
+  overflow-y: hidden;
+  padding-bottom: 5%;
+}
+
+#user-story-container {
+  overflow-y: auto;
+  height: 100%;
+}
+
+#user-story-container::-webkit-scrollbar {
+  display: none;
+}
+
+.nest-title {
+  color: slategray;
+  font-weight: 350;
+}
+
+.user-story-desc-text {
+  font-size: 0.8rem !important;
+}
+
+.user-story-title-text {
+  font-size: 1rem !important;
+}
+
+.user-story-subtitle-text {
+  font-size: 0.9rem !important;
 }
 
 /* End Board Classes */
