@@ -12,19 +12,19 @@ const ROUTES = [
     path: "/",
     key: "HOME",
     exact: true,
-    component: () => <Home />,
+    component: Home,
   },
   {
     path: "/epics",
     key: "EPICS",
     exact: true,
-    component: () => <Epics />,
+    component: Epics,
   },
   {
     path: "/board",
     key: "BOARD",
     exact: true,
-    component: () => <Board />,
+    component: Board,
   },
 ];
 

@@ -40,7 +40,7 @@ class NavBar extends Component {
             {this.state.navBarItems.map((navBarItem) => (
               <li
                 key={navBarItem.id + "-list"}
-                className="nav-item px-3 navbar-icons"
+                className="nav-item px-3 selectable-item"
               >
                 <NavBarItem
                   key={navBarItem.id}
@@ -62,14 +62,18 @@ class NavBar extends Component {
   }
 
   resetRedirectState() {
-    this.setState({ redirect: false, redirectRoute: "" });
+    this.setState({ ...this.state, redirect: false, redirectRoute: "" });
   }
 
   handleClicked = (navBarItem) => {
     if (navBarItem.displayDialogComponent) {
       this.props.showDialog(dialogData);
     } else if (navBarItem.route) {
-      this.setState({ redirect: true, redirectRoute: navBarItem.route });
+      this.setState({
+        ...this.state,
+        redirect: true,
+        redirectRoute: navBarItem.route,
+      });
     }
   };
 }
