@@ -27,7 +27,7 @@ class UserStoryCard extends Component {
                   {this.props.userStory.title}
                 </Card.Title>
                 <Card.Subtitle className="mb-2 text-muted user-story-subtitle-text">
-                  Assigned: {this.props.userStory.assignee}
+                  Assigned: {this.props.userStory.owner}
                 </Card.Subtitle>
                 <Card.Text className="user-story-desc-text">
                   {this.displayDescription(this.props.userStory.description)}

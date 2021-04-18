@@ -108,8 +108,7 @@ class SideBar extends Component {
   handleClicked(nest) {
     if (nest.nestId) {
       this.props.history.push({
-        pathname: "/board", // Can keep as static for now...
-        state: nest,
+        pathname: `/nests/${nest.nestId}`,
       });
     }
   }

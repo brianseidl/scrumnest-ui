@@ -21,8 +21,8 @@ const ROUTES = [
     component: Epics,
   },
   {
-    path: "/board",
-    key: "BOARD",
+    path: "/nests/:nestId",
+    key: "NEST",
     exact: true,
     component: Board,
   },
@@ -38,7 +38,8 @@ function RouteWithSubRoutes(route) {
     <Route
       path={route.path}
       exact={route.exact}
-      render={(props) => <route.component {...props} routes={route.routes} />}
+      //render={(props) => <route.component {...props} routes={route.routes} />}
+      component={route.component}
     />
   );
 }
