@@ -60,7 +60,7 @@ class SideBar extends Component {
           <Nav.Item className="active">
             <Nav.Link onClick={() => this.props.showDialog(createBoardData)}>
               <FontAwesomeIcon icon={faClipboard} className="mr-2" />
-              New Boards
+              Create Nest
             </Nav.Link>
           </Nav.Item>
 
@@ -69,7 +69,7 @@ class SideBar extends Component {
               <Dropdown.Toggle as={this.customToggle}>
                 <div className="selectable-item">
                   <FontAwesomeIcon icon={faClipboardList} className="mr-2" />
-                  My Boards
+                  My Nests
                 </div>
               </Dropdown.Toggle>
               <Dropdown.Menu align="right">

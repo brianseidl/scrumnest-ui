@@ -16,7 +16,6 @@ class Board extends Component {
     nestName: "",
     nestId: "",
     nestData: NEST_MODEL,
-    subscription: null,
   };
 
   render() {
@@ -71,11 +70,10 @@ class Board extends Component {
 
     // add subscription here
     this.subscription = API.graphql(
-      graphqlOperation(subscriptions.subscribeToNestStatus, {
-        nestId: this.state.nestId,
-      })
+      graphqlOperation(subscriptions.nestStories, { nestId: this.state.nestId })
     ).subscribe((value) => {
-      this.setNestState(value.value.data.subscribeToNestStatus);
+      if (value.value.data.nestStories)
+        this.setNestState(value.value.data.nestStories);
     });
   }
 
@@ -217,7 +215,7 @@ class Board extends Component {
 
     // Mutation to send new state to API
     API.graphql(
-      graphqlOperation(mutations.updateStoryStatus, {
+      graphqlOperation(mutations.updateStory, {
         nestId: this.state.nestId,
         storyId: this.state.nestData[destinationColumnIndex].userStories[
           destination.index
