@@ -54,7 +54,7 @@ export function RenderRoutes({ routes }) {
         return <RouteWithSubRoutes key={route.key} {...route} />;
       })}
       {/* Renders when we cannot find the specified route, allows us to stay within nested sections ex: '/app/' instead
-			  of a general 404 page */}
+        of a general 404 page */}
       <Route component={() => <h1>Route Not Found!</h1>} />
     </Switch>
   );

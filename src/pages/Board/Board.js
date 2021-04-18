@@ -62,15 +62,19 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    this.getNestData();
+    // get nest info on page load
+    API.graphql(
+      graphqlOperation(queries.nest, { nestId: this.state.nestId })
+    ).then((value) => {
+      this.setNestState(value.data.nest);
+    });
+
     // add subscription here
     this.subscription = API.graphql(
       graphqlOperation(subscriptions.subscribeToNestStatus, {
         nestId: this.state.nestId,
       })
     ).subscribe((value) => {
-      console.log("We fucking did it");
-      console.log(value);
       this.setNestState(value.value.data.subscribeToNestStatus);
     });
   }
@@ -78,14 +82,6 @@ class Board extends Component {
   componentWillUnmount() {
     // unsubscribe to subscription
     this.subscription.unsubscribe();
-  }
-
-  getNestData() {
-    API.graphql(
-      graphqlOperation(queries.nest, { nestId: this.state.nestId })
-    ).then((value) => {
-      this.setNestState(value.data.nest);
-    });
   }
 
   /**
@@ -218,16 +214,6 @@ class Board extends Component {
     this.setState({
       nestData: tempNestData,
     });
-
-    console.log({
-      nestId: this.state.nestId,
-      storyId: this.state.nestData[destinationColumnIndex].userStories[
-        destination.index
-      ].id,
-      status: this.state.nestData[destinationColumnIndex].id,
-    });
-
-    console.log(source);
 
     // Mutation to send new state to API
     API.graphql(
