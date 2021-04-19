@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import UserStoryContainer from "../../components/UserStory/UserStoryContainer";
-import { NEST_MODEL } from "./BoardConstants";
+import { NEST_MODEL } from "./NestConstants";
 import CreateStoryModal from "../../components/Dialogs/CreateStoryModal";
 
 import { DragDropContext } from "react-beautiful-dnd";
@@ -15,7 +15,7 @@ import * as queries from "../../graphql/queries";
 import * as mutations from "../../graphql/mutations";
 import * as subscriptions from "../../graphql/subscriptions";
 
-class Board extends Component {
+class Nest extends Component {
   state = {
     nestName: "",
     nestId: "",
@@ -253,4 +253,4 @@ class Board extends Component {
   closeModal = () => this.setState({ isModalOpen: false });
 }
 
-export default Board;
+export default Nest;

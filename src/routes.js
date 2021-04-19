@@ -2,7 +2,9 @@ import React from "react";
 import { Route } from "react-router";
 import Epics from "./pages/Epics/Epics";
 import Home from "./pages/Home/Home";
-import Board from "./pages/Board/Board";
+import Nest from "./pages/Nest/Nest";
+import Nests from "./pages/Nest/Nests";
+
 import { Switch } from "react-router-dom";
 
 // Configuration of routes
@@ -24,7 +26,13 @@ const ROUTES = [
     path: "/nests/:nestId",
     key: "NEST",
     exact: true,
-    component: Board,
+    component: Nest,
+  },
+  {
+    path: "/nests",
+    key: "NESTS",
+    exact: true,
+    component: Nests,
   },
 ];
 
