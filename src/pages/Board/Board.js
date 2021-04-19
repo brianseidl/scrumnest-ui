@@ -2,10 +2,14 @@ import React, { Component } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+
 import UserStoryContainer from "../../components/UserStory/UserStoryContainer";
 import { NEST_MODEL } from "./BoardConstants";
+import CreateStoryModal from "../../components/Dialogs/CreateStoryModal";
+
 import { DragDropContext } from "react-beautiful-dnd";
 import { API, graphqlOperation } from "aws-amplify";
+
 // TODO: Remove all of this * crap
 import * as queries from "../../graphql/queries";
 import * as mutations from "../../graphql/mutations";
@@ -16,6 +20,7 @@ class Board extends Component {
     nestName: "",
     nestId: "",
     nestData: NEST_MODEL,
+    isModalOpen: false,
   };
 
   render() {
@@ -30,14 +35,18 @@ class Board extends Component {
               {this.state.nestData.map((column) => (
                 <Col key={column.id} className="board-column-properties">
                   <div id="board-container-title" className="text-center">
-                    <h5 className="display-4 text-black">{column.title}</h5>
-                    {column.showAddButton && (
-                      <i
-                        className="fa fa-plus-square-o"
-                        style={{ fontSize: "30px", cursor: "pointer" }}
-                        aria-hidden="true"
-                      ></i>
-                    )}
+                    <h5 className="display-4 text-black">
+                      {column.title}&nbsp;
+                      {column.showAddButton && (
+                        <button
+                          type="button"
+                          className="btn btn-outline-secondary px-2 py-1"
+                          onClick={this.openModal}
+                        >
+                          <i className="fa fa-plus" />
+                        </button>
+                      )}
+                    </h5>
                   </div>
                   <UserStoryContainer
                     key={column.id}
@@ -48,6 +57,11 @@ class Board extends Component {
             </DragDropContext>
           </Row>
         </Container>
+        <CreateStoryModal
+          closeModal={this.closeModal}
+          isOpen={this.state.isModalOpen}
+          nestId={this.state.nestId}
+        />
       </React.Fragment>
     );
   }
@@ -139,6 +153,9 @@ class Board extends Component {
         case "COMPLETED":
           nestData[3].userStories.push(storyData);
           break;
+        default:
+          nestData[0].userStories.push(storyData);
+          break;
       }
     });
 
@@ -226,6 +243,14 @@ class Board extends Component {
       // pass?
     });
   }
+
+  createStory() {
+    alert("Fuck Off!");
+  }
+
+  // for the create story modal
+  openModal = () => this.setState({ isModalOpen: true });
+  closeModal = () => this.setState({ isModalOpen: false });
 }
 
 export default Board;
