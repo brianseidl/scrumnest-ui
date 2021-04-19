@@ -14,6 +14,8 @@ class App extends Component {
     this.setState({
       username,
     });
+
+    Auth.currentUserInfo().then((value) => console.log("user info is:", value));
   }
 
   render() {

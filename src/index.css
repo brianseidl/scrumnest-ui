@@ -180,6 +180,86 @@ li a.dropdown-toggle::after {
   margin-bottom: 10px;
 }
 
+/* Team page */
+
+.container-team {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-bottom: 100px;
+  padding-left: 200px;
+  padding-right: 100px;
+}
+
+.team-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin-left: -30px;
+}
+
+.select-nest-row {
+  margin-left: 30%;
+}
+
+.select-nest-header {
+  float: left !important;
+  text-align: center !important;
+  margin-right: 30px;
+}
+
+.input-group {
+  width: 75% !important;
+}
+
+.btn-add-teammate {
+  display: inline-block;
+  width: 15% !important;
+  margin-left: 10px;
+  /* margin-bottom: 40px; */
+}
+
+.card-pending {
+  display: contents;
+}
+
+.name-text {
+  display: inline-block;
+}
+
+.team-line {
+  margin-right: 120px;
+}
+
+.row-pending {
+  display: inherit !important;
+  margin-right: 100px !important;
+}
+
+.scroll {
+  max-height: 470px;
+  overflow-y: auto;
+}
+
+.col-md-4-pending {
+  margin-left: 20px;
+  max-width: 90% !important;
+}
+
+.member-name-text {
+  display: inline-block;
+  font-size: 25px;
+}
+
+.btn-primary-edit {
+  color: #fff !important;
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+  float: right;
+  margin-right: 20px;
+}
+
 /* End NavBar Classes */
 
 /* Dropdown Classes */
@@ -287,3 +367,25 @@ li a.dropdown-toggle::after {
 }
 
 /* End Board Classes */
+
+/* Generic Form Controls */
+.disabled-field {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* button[disabled]:active,
+button[disabled],
+input[type="button"][disabled]:active,
+input[type="button"][disabled],
+input[type="submit"][disabled]:active,
+input[type="submit"][disabled],
+button[disabled]:hover,
+input[type="button"][disabled]:hover,
+input[type="submit"][disabled]:hover {
+  border: 2px outset ButtonFace;
+  color: GrayText;
+  cursor: inherit;
+  background-color: #ddd;
+  background: #ddd;
+} */

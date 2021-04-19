@@ -3,6 +3,7 @@ import { Route } from "react-router";
 import Epics from "./pages/Epics/Epics";
 import Home from "./pages/Home/Home";
 import Board from "./pages/Board/Board";
+import Team from "./pages/Team/Team";
 import { Switch } from "react-router-dom";
 
 // Configuration of routes
@@ -25,6 +26,12 @@ const ROUTES = [
     key: "BOARD",
     exact: true,
     component: Board,
+  },
+  {
+    path: "/team",
+    key: "TEAM",
+    exact: true,
+    component: Team,
   },
 ];
 
