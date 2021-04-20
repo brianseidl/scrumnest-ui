@@ -26,7 +26,6 @@ class Story extends Component {
       })
     ).then((value) => {
       this.setState({ story: value.data.story });
-      console.log(this.state.story);
     });
   }
 

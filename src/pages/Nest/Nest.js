@@ -29,6 +29,8 @@ class Nest extends Component {
         <h1 className="display-6 text-black text-center nest-title">
           Nest: {this.state.nestName}
         </h1>
+        {/* TODO: Move this link to somewhere nicer */}
+        <a href={`/nests/${this.state.nestId}/stories`}>View all stories</a>
         <Container id="board-container" className="container-height">
           <Row>
             <DragDropContext onDragEnd={this.handleOnDragEnd}>

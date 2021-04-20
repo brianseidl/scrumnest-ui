@@ -5,6 +5,7 @@ import Home from "./pages/Home/Home";
 import Nest from "./pages/Nest/Nest";
 import Nests from "./pages/Nest/Nests";
 import Story from "./pages/Story/Story";
+import Stories from "./pages/Story/Stories";
 
 import { Switch } from "react-router-dom";
 
@@ -34,6 +35,12 @@ const ROUTES = [
     key: "NESTS",
     exact: true,
     component: Nests,
+  },
+  {
+    path: "/nests/:nestId/stories",
+    key: "STORIES",
+    exact: true,
+    component: Stories,
   },
   {
     path: "/nests/:nestId/stories/:storyId",
