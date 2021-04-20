@@ -4,6 +4,7 @@ import Epics from "./pages/Epics/Epics";
 import Home from "./pages/Home/Home";
 import Nest from "./pages/Nest/Nest";
 import Nests from "./pages/Nest/Nests";
+import Story from "./pages/Story/Story";
 
 import { Switch } from "react-router-dom";
 
@@ -33,6 +34,12 @@ const ROUTES = [
     key: "NESTS",
     exact: true,
     component: Nests,
+  },
+  {
+    path: "/nests/:nestId/stories/:storyId",
+    key: "STORY",
+    exact: true,
+    component: Story,
   },
 ];
 

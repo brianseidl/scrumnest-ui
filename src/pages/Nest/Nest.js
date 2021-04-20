@@ -49,6 +49,7 @@ class Nest extends Component {
                     </h5>
                   </div>
                   <UserStoryContainer
+                    nestId={this.state.nestId}
                     key={column.id}
                     columnProperties={column}
                   />

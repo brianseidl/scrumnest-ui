@@ -35,6 +35,13 @@ class UserStoryCard extends Component {
                 <Button className="user-story-desc-text" variant="primary">
                   View
                 </Button>{" "}
+                <a
+                  className="btn btn-primary user-story-desc-text"
+                  href={`/nests/${this.props.nestId}/stories/${this.props.userStory.id}`}
+                  role="button"
+                >
+                  Link
+                </a>
                 <Button className="user-story-desc-text" variant="danger">
                   Delete
                 </Button>
