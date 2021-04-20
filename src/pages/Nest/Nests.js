@@ -45,7 +45,7 @@ class Nests extends Component {
                     </td>
                     <td>{nest.name}</td>
                     <td>{nest.owner}</td>
-                    <td>{nest.users.length + 1}</td>
+                    <td>{nest.users.length}</td>
                     <td>{new Date(nest.createdAt).toLocaleString()}</td>
                   </tr>
                 );
