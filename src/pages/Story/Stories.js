@@ -16,7 +16,6 @@ class Stories extends Component {
 
   componentDidMount() {
     // get story info on page load
-    console.log("fuck");
     API.graphql(
       graphqlOperation(queries.stories, {
         nestId: this.state.nestId,
