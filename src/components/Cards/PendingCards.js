@@ -13,7 +13,7 @@ class PendingCards extends Component {
           }`}
         >
           {this.props.cards.map((pendingItem) => (
-            <div key={pendingItem.name} className="col-md-4-pending mb-2">
+            <div key={pendingItem.email} className="col-md-4-pending mb-2">
               <PendingCardItem
                 pendingItem={pendingItem}
                 onClicked={this.props.handleDialogEvent}

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 
 // Used for dialogs that require only radio buttons as selectable values
 class YesNoDialog extends Component {

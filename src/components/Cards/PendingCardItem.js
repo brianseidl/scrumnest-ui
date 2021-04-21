@@ -4,7 +4,7 @@ const PendingCardItem = ({ pendingItem, onClicked }) => {
   return (
     <React.Fragment>
       <div className="card-pending h-30">
-        <p className="name-text">{pendingItem.name}</p>
+        <p className="name-text">{pendingItem.email}</p>
         <button
           type="button"
           class="close float-right"

@@ -9,8 +9,8 @@ import { Nav, Dropdown } from "react-bootstrap";
 import classNames from "classnames";
 import { createBoardData } from "./SideBarConstant";
 import { AmplifySignOut } from "@aws-amplify/ui-react";
-import { API, graphqlOperation } from "aws-amplify";
-import * as queries from "../../graphql/queries";
+//import { API, graphqlOperation } from "aws-amplify";
+//import * as queries from "../../graphql/queries";
 import { withRouter } from "react-router-dom";
 
 class SideBar extends Component {
@@ -60,38 +60,49 @@ class SideBar extends Component {
           <Nav.Item className="active">
             <Nav.Link onClick={() => this.props.showDialog(createBoardData)}>
               <FontAwesomeIcon icon={faClipboard} className="mr-2" />
-              New Boards
+              Create Nest
             </Nav.Link>
           </Nav.Item>
 
-          <Nav.Item className="active nav-link">
-            <Dropdown>
-              <Dropdown.Toggle as={this.customToggle}>
-                <div className="selectable-item">
-                  <FontAwesomeIcon icon={faClipboardList} className="mr-2" />
-                  My Boards
-                </div>
-              </Dropdown.Toggle>
-              <Dropdown.Menu align="right">
-                {this.state.nests.map((nest, index) => (
-                  <Dropdown.Item key={index} eventKey={index}>
-                    <div onClick={() => this.handleClicked(nest)}>
-                      <FontAwesomeIcon
-                        icon={faClipboardList}
-                        className="mr-3"
-                      />
-                      {nest.name}
-                    </div>
-                  </Dropdown.Item>
-                ))}
-              </Dropdown.Menu>
-            </Dropdown>
+          <Nav.Item className="active">
+            <Nav.Link href="/nests">
+              <div className="selectable-item">
+                <FontAwesomeIcon icon={faClipboardList} className="mr-2" />
+                My Nests
+              </div>
+            </Nav.Link>
           </Nav.Item>
+          {/*  Depricated: To be removed soon
+            <Nav.Item className="active nav-link">
+              <Dropdown>
+                <Dropdown.Toggle as={this.customToggle}>
+                  <div className="selectable-item">
+                    <FontAwesomeIcon icon={faClipboardList} className="mr-2" />
+                    My Nests
+                  </div>
+                </Dropdown.Toggle>
+                <Dropdown.Menu align="right">
+                  {this.state.nests.map((nest, index) => (
+                    <Dropdown.Item key={index} eventKey={index}>
+                      <div onClick={() => this.handleClicked(nest)}>
+                        <FontAwesomeIcon
+                          icon={faClipboardList}
+                          className="mr-3"
+                        />
+                        {nest.name}
+                      </div>
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            </Nav.Item>
+          */}
         </Nav>
       </div>
     );
   }
 
+  /*  Depricated: To be removed soon
   componentDidMount() {
     this.getNestsForUser();
   }
@@ -108,8 +119,7 @@ class SideBar extends Component {
   handleClicked(nest) {
     if (nest.nestId) {
       this.props.history.push({
-        pathname: "/board", // Can keep as static for now...
-        state: nest,
+        pathname: `/nests/${nest.nestId}`,
       });
     }
   }
@@ -117,6 +127,7 @@ class SideBar extends Component {
   parseNest(nest) {
     return { name: nest.name, nestId: nest.nestId };
   }
+  */
 }
 
 export default withRouter(SideBar);

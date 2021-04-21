@@ -1,15 +1,13 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "react-bootstrap";
-import { permissionData } from "../../pages/Team/TeamPageConstants";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const MemberCardItem = ({ memberItem, onClicked }) => {
   return (
     <React.Fragment>
       <div className="card-pending h-30">
         <FontAwesomeIcon icon={faUser} className="mr-2 fa-2x" />
-        <p className="member-name-text">{memberItem.name}</p>
+        <p className="member-name-text">{memberItem.username}</p>
 
         <button
           type="button"

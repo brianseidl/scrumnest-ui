@@ -13,7 +13,7 @@ class MemberCards extends Component {
           }`}
         >
           {this.props.cards.map((memberItem) => (
-            <div key={memberItem.name} className="col-md-4-pending mb-2">
+            <div key={memberItem.username} className="col-md-4-pending mb-2">
               <MemberCardItem
                 memberItem={memberItem}
                 onClicked={this.props.handleDialogEvent}

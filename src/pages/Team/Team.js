@@ -1,28 +1,25 @@
 import React, { Component } from "react";
-import Form from "react-bootstrap/Form";
-import { pendingItems, memberItems, yesNoData } from "./TeamPageConstants";
+import { yesNoData } from "./TeamPageConstants";
 import PendingCards from "../../components/Cards/PendingCards";
 import MemberCards from "../../components/Cards/MemberCards";
 import YesNoDialog from "../../components/Dialogs/YesNoDialog";
 import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
+import * as mutations from "../../graphql/mutations";
 import { Auth } from "aws-amplify";
+import _ from "lodash";
 
 class Team extends Component {
-  constructor(props) {
-    super(props);
-    console.log("props is:", props);
-  }
-
   state = {
     loggedUser: "",
     show: false,
     selectedMember: null,
-    members: memberItems,
-    pending: pendingItems,
+    members: [],
+    pending: [],
     nests: [],
     selectedNest: null,
     disableFields: false,
+    newUserEmail: "",
   };
 
   render() {
@@ -82,6 +79,8 @@ class Team extends Component {
                   }`}
                   aria-label="Small"
                   aria-describedby="inputGroup-sizing-sm"
+                  onChange={this.setNewUserEmail}
+                  value={this.state.newUserEmail}
                 ></input>
 
                 <button
@@ -89,6 +88,7 @@ class Team extends Component {
                     this.state.disableFields ? "disabled-field" : ""
                   }`}
                   type="submit"
+                  onClick={this.addNewUser}
                 >
                   Add
                 </button>
@@ -128,12 +128,11 @@ class Team extends Component {
   }
 
   handleShowDialog = (member) => {
-    console.log(member);
     this.setState({ show: true, selectedMember: member });
   };
 
   handleCloseYesNoDialog = (deleteMember) => {
-    if (this.state.selectedMember.pending == true)
+    if (this.state.selectedMember.pending === true)
       this.handleYesNoDialogPendingMember();
     else if (deleteMember) this.handleYesNoDialogTeamMember();
     else
@@ -167,96 +166,99 @@ class Team extends Component {
   componentDidMount() {
     this.getNestsForUser();
     Auth.currentUserInfo().then((value) => {
-      this.state.loggedUser = value.username;
-      console.log(value.username);
+      this.setState({ loggedUser: value.username });
     });
   }
 
   componentDidUpdate(prevProps, prevState) {
+    // Updating the CSS based on the users permission for the selected nest
     if (prevState.selectedNest !== this.state.selectedNest) {
       if (
         // null will be "Choose...""
-        this.state.selectedNest.owner == this.state.loggedUser
+        this.state.selectedNest == null ||
+        this.state.selectedNest.owner === this.state.loggedUser
       )
-        this.setState({ disableFields: true });
-      else this.setState({ disableFields: false });
+        this.setState({ disableFields: false });
+      else this.setState({ disableFields: true });
+
+      // Load the Members List based on the selected nest
+      // Get the index of the selected nest
+      let index = this.state.nests.indexOf(this.state.selectedNest);
+
+      // Hold the members and pending
+      let tempMembers = [];
+      let tempPending = [];
+
+      // index is -1 is Choose...
+      if (index > -1) {
+        // set members to users with usernames & pending to emails of users without usernames
+        for (let i = 0; i < this.state.nests[index].users.length; i++) {
+          if (this.state.nests[index].users[i].username !== "")
+            tempMembers.push(this.state.nests[index].users[i]);
+          else tempPending.push(this.state.nests[index].users[i]);
+        }
+      }
+
+      // Set members and pending
+      this.setState({
+        members: tempMembers,
+        pending: tempPending,
+      });
     }
   }
 
   getNestsForUser() {
     API.graphql(graphqlOperation(queries.nests)).then((value) => {
       this.setState({ nests: value.data.nests });
-      console.log("Nests are: ", value);
     });
   }
 
   handleNestSelect = () => {
     // Get selected index and nest name
-    var nest = document.getElementById("nestName");
-    // If index is 0, set disable to false and return (Choose... option)
-    if (nest.selectedIndex === 0) {
-      this.setState({ disableFields: false });
-      return;
-    }
+    let nest = document.getElementById("nestName");
     const nestName = nest.options[nest.selectedIndex].text;
 
     // Getting the nest from the array
-    var getSelectedNest = this.state.nests.filter(function (obj) {
+    let getSelectedNest = this.state.nests.filter(function (obj) {
       return obj.name === nestName;
     })[0];
 
     this.setState({ selectedNest: getSelectedNest });
+  };
 
-    // if (this.state.selectedNest.owner == this.state.loggedUser)
-    //   this.setState({ disableFields: true });
-    // else this.setState({ disableFields: false });
+  setNewUserEmail = (data) => {
+    this.setState({ newUserEmail: data.target.value });
+  };
 
-    //     for (var i = 0; i < this.state.nests.length; i++) {
-    //   console.log("Current Nest: ", this.state.nests[i].name);
-    //   console.log("Selected Nest: ", this.state.selectedNest);
+  addNewUser = () => {
+    if (this.state.selectedNest) {
+      const nestID = this.state.selectedNest.nestId;
+      const email = this.state.newUserEmail;
 
-    //   console.log("Nest Owner: ", this.state.nests[i].owner);
-    //   console.log("Logged User: ", this.state.loggedUser);
+      API.graphql(
+        graphqlOperation(mutations.addNestUser, {
+          nestId: nestID,
+          email: email,
+        })
+      ).then((value) => {
+        const nests = _.cloneDeep(this.state.nests);
+        const updatedNest = {
+          ...this.state.selectedNest,
+          users: value.data.addNestUser.users,
+        };
 
-    //   if (this.state.nests[i].name == this.state.selectedNest) {
-    //     if (this.state.nests[i].owner == this.state.loggedUser) {
-    //       this.setState({ disableFields: true });
-    //       console.log("it should update fam");
-    //       break;
-    //     } else {
-    //       this.setState({ disableFields: false });
-    //       break;
-    //     }
-    //   }
-    // }
-    // const nestName = nest.options[nest.selectedIndex].;
-    // this.setState({ selectedNest: nest.options[nest.selectedIndex].text });
+        const index = this.state.nests.indexOf(this.state.selectedNest);
+        nests[index] = updatedNest;
 
-    // console.log("Nest test: ", this.state.selectedNest);
-
-    // this.state.selectedNest = nest.options[nest.selectedIndex].text;
-
-    // for (var i = 0; i < this.state.nests.length; i++) {
-    //   console.log("Current Nest: ", this.state.nests[i].name);
-    //   console.log("Selected Nest: ", this.state.selectedNest);
-
-    //   console.log("Nest Owner: ", this.state.nests[i].owner);
-    //   console.log("Logged User: ", this.state.loggedUser);
-
-    //   if (this.state.nests[i].name == this.state.selectedNest) {
-    //     if (this.state.nests[i].owner == this.state.loggedUser) {
-    //       this.setState({ disableFields: true });
-    //       console.log("it should update fam");
-    //       break;
-    //     } else {
-    //       this.setState({ disableFields: false });
-    //       break;
-    //     }
-    //   }
-    // }
-
-    // if (this.state.selectedNest == "Choose...")
-    //   this.setState({ disableFields: false });
+        this.setState({
+          selectedNest: updatedNest,
+          nests: nests,
+          newUserEmail: "",
+        });
+      });
+    } else {
+      alert("Select a Nest");
+    }
   };
 }
 

@@ -2,8 +2,11 @@ import React from "react";
 import { Route } from "react-router";
 import Epics from "./pages/Epics/Epics";
 import Home from "./pages/Home/Home";
-import Board from "./pages/Board/Board";
+// import Board from "./pages/Board/Board";
 import Team from "./pages/Team/Team";
+import Nest from "./pages/Nest/Nest";
+import Nests from "./pages/Nest/Nests";
+
 import { Switch } from "react-router-dom";
 
 // Configuration of routes
@@ -22,10 +25,16 @@ const ROUTES = [
     component: Epics,
   },
   {
-    path: "/board",
-    key: "BOARD",
+    path: "/nests/:nestId",
+    key: "NEST",
     exact: true,
-    component: Board,
+    component: Nest,
+  },
+  {
+    path: "/nests",
+    key: "NESTS",
+    exact: true,
+    component: Nests,
   },
   {
     path: "/team",
@@ -45,7 +54,8 @@ function RouteWithSubRoutes(route) {
     <Route
       path={route.path}
       exact={route.exact}
-      render={(props) => <route.component {...props} routes={route.routes} />}
+      //render={(props) => <route.component {...props} routes={route.routes} />}
+      component={route.component}
     />
   );
 }
@@ -60,7 +70,7 @@ export function RenderRoutes({ routes }) {
         return <RouteWithSubRoutes key={route.key} {...route} />;
       })}
       {/* Renders when we cannot find the specified route, allows us to stay within nested sections ex: '/app/' instead
-			  of a general 404 page */}
+        of a general 404 page */}
       <Route component={() => <h1>Route Not Found!</h1>} />
     </Switch>
   );
