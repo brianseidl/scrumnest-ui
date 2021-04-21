@@ -247,10 +247,6 @@ class Nest extends Component {
     });
   }
 
-  createStory() {
-    alert("Fuck Off!");
-  }
-
   // for the create story modal
   openModal = () => this.setState({ isModalOpen: true });
   closeModal = () => this.setState({ isModalOpen: false });

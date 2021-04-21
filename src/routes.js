@@ -2,6 +2,8 @@ import React from "react";
 import { Route } from "react-router";
 import Epics from "./pages/Epics/Epics";
 import Home from "./pages/Home/Home";
+// import Board from "./pages/Board/Board";
+import Team from "./pages/Team/Team";
 import Nest from "./pages/Nest/Nest";
 import Nests from "./pages/Nest/Nests";
 import Story from "./pages/Story/Story";
@@ -35,6 +37,12 @@ const ROUTES = [
     key: "NESTS",
     exact: true,
     component: Nests,
+  },
+  {
+    path: "/team",
+    key: "TEAM",
+    exact: true,
+    component: Team,
   },
   {
     path: "/nests/:nestId/stories",

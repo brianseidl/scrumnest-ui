@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import OptionDialog from "./OptionDialog";
 import CreateBoardDialog from "./CreateBoardDialog";
 import { withRouter } from "react-router-dom";
+import YesNoDialog from "./YesNoDialog";
 
 /**
  * Wrapper component around various dialog components
@@ -28,8 +29,13 @@ class DialogWrapper extends Component {
         break;
       }
       case "yesNoDialog": {
-        // TO-DO: yes no dialog instance here
-        break;
+        return (
+          <YesNoDialog
+            dialog={this.props.dialog}
+            onClose={this.handleCloseDialog}
+            onSubmit={this.handleSubmitDialog}
+          />
+        );
       }
       case "checkboxDialog": {
         // TO-DO: checkbox dialog instance here

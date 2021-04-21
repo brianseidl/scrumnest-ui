@@ -3,7 +3,7 @@
 const navBarItemsModel = [
   {
     id: 1,
-    route: "/teams",
+    route: "/team",
     icon: "fa fa-users",
     displayDialogComponent: false,
   },
