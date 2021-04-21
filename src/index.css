@@ -373,19 +373,3 @@ li a.dropdown-toggle::after {
   pointer-events: none;
   opacity: 0.6;
 }
-
-/* button[disabled]:active,
-button[disabled],
-input[type="button"][disabled]:active,
-input[type="button"][disabled],
-input[type="submit"][disabled]:active,
-input[type="submit"][disabled],
-button[disabled]:hover,
-input[type="button"][disabled]:hover,
-input[type="submit"][disabled]:hover {
-  border: 2px outset ButtonFace;
-  color: GrayText;
-  cursor: inherit;
-  background-color: #ddd;
-  background: #ddd;
-} */
