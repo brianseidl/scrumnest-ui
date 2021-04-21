@@ -5,48 +5,56 @@ import { API, graphqlOperation } from "aws-amplify";
 
 import * as queries from "../../graphql/queries";
 
-class Nests extends Component {
+class Stories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nests: [],
+      nestId: this.props.match.params.nestId,
+      stories: [],
     };
   }
 
   componentDidMount() {
-    // get nest info on page load
-    API.graphql(graphqlOperation(queries.nests)).then((value) => {
-      this.setState({ nests: value.data.nests });
-      console.log(this.state.nests);
+    // get story info on page load
+    API.graphql(
+      graphqlOperation(queries.stories, {
+        nestId: this.state.nestId,
+      })
+    ).then((value) => {
+      this.setState({ stories: value.data.stories });
     });
   }
 
   render() {
     return (
       <React.Fragment>
-        <h1 className="display-6 text-black text-center nest-title">Nests</h1>
+        <h1 className="display-6 text-black text-center nest-title">Stories</h1>
         <Container id="board-container" className="container-height">
           <table className="table table-striped">
             <thead>
               <tr className="table-primary">
                 <th>#</th>
-                <th>Name</th>
+                <th>Title</th>
                 <th>Owner</th>
-                <th>Number of Users</th>
+                <th>Status</th>
                 <th>Date Created</th>
               </tr>
             </thead>
             <tbody>
-              {this.state.nests.map((nest) => {
+              {this.state.stories.map((story) => {
                 return (
                   <tr>
                     <td>
-                      <a href={`/nests/${nest.nestId}`}>{nest.nestId}</a>
+                      <a
+                        href={`/nests/${this.state.nestId}/stories/${story.storyId}`}
+                      >
+                        {story.storyId}
+                      </a>
                     </td>
-                    <td>{nest.name}</td>
-                    <td>{nest.owner}</td>
-                    <td>{nest.users.length}</td>
-                    <td>{new Date(nest.createdAt).toLocaleString()}</td>
+                    <td>{story.title}</td>
+                    <td>{story.owner}</td>
+                    <td>{story.status}</td>
+                    <td>{new Date(story.createdAt).toLocaleString()}</td>
                   </tr>
                 );
               })}
@@ -58,4 +66,4 @@ class Nests extends Component {
   }
 }
 
-export default Nests;
+export default Stories;

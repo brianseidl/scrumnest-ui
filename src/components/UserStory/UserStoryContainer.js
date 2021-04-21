@@ -19,7 +19,11 @@ class UserStoryContainer extends Component {
                 (userStory, index) => (
                   <div key={userStory.id}>
                     <br />
-                    <UserStoryCard userStory={userStory} index={index} />
+                    <UserStoryCard
+                      userStory={userStory}
+                      index={index}
+                      nestId={this.props.nestId}
+                    />
                   </div>
                 )
               )}

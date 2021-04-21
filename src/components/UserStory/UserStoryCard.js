@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import { Draggable } from "react-beautiful-dnd";
+
+import ConfirmButton from "../Dialogs/ConfirmButton";
+
+import { API, graphqlOperation } from "aws-amplify";
+import * as mutations from "../../graphql/mutations";
 
 class UserStoryCard extends Component {
   state = {};
@@ -32,12 +36,19 @@ class UserStoryCard extends Component {
                 <Card.Text className="user-story-desc-text">
                   {this.displayDescription(this.props.userStory.description)}
                 </Card.Text>
-                <Button className="user-story-desc-text" variant="primary">
+                <a
+                  className="btn btn-primary user-story-desc-text"
+                  href={`/nests/${this.props.nestId}/stories/${this.props.userStory.id}`}
+                  role="button"
+                >
                   View
-                </Button>{" "}
-                <Button className="user-story-desc-text" variant="danger">
-                  Delete
-                </Button>
+                </a>{" "}
+                <ConfirmButton
+                  label="Delete"
+                  question="Confirm delete"
+                  className="user-story-desc-text btn-danger"
+                  onClick={this.deleteStory}
+                />
               </Card.Body>
             </Card>
           </div>
@@ -57,6 +68,17 @@ class UserStoryCard extends Component {
       ? `${description.substr(0, this.DESCRIPTION_LENGTH).trim()}...`
       : description;
   }
+
+  deleteStory = (event) => {
+    API.graphql(
+      graphqlOperation(mutations.deleteStory, {
+        nestId: this.props.nestId,
+        storyId: this.props.userStory.id,
+      })
+    ).then((value) => {
+      // pass?
+    });
+  };
 }
 
 export default UserStoryCard;
