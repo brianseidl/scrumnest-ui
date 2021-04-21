@@ -53,7 +53,7 @@ class Home extends Component {
                 </a>
                 <br />
                 <br />
-                Email: <a href="mailto:#">scrum.nest.help@gmail.com</a>
+                Email: <a href="mailto:#">support@scrumnest.com</a>
               </address>
               <address></address>
             </div>

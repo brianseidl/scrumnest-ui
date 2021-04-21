@@ -9,8 +9,6 @@ import { Nav, Dropdown } from "react-bootstrap";
 import classNames from "classnames";
 import { createBoardData } from "./SideBarConstant";
 import { AmplifySignOut } from "@aws-amplify/ui-react";
-//import { API, graphqlOperation } from "aws-amplify";
-//import * as queries from "../../graphql/queries";
 import { withRouter } from "react-router-dom";
 
 class SideBar extends Component {
@@ -72,62 +70,10 @@ class SideBar extends Component {
               </div>
             </Nav.Link>
           </Nav.Item>
-          {/*  Depricated: To be removed soon
-            <Nav.Item className="active nav-link">
-              <Dropdown>
-                <Dropdown.Toggle as={this.customToggle}>
-                  <div className="selectable-item">
-                    <FontAwesomeIcon icon={faClipboardList} className="mr-2" />
-                    My Nests
-                  </div>
-                </Dropdown.Toggle>
-                <Dropdown.Menu align="right">
-                  {this.state.nests.map((nest, index) => (
-                    <Dropdown.Item key={index} eventKey={index}>
-                      <div onClick={() => this.handleClicked(nest)}>
-                        <FontAwesomeIcon
-                          icon={faClipboardList}
-                          className="mr-3"
-                        />
-                        {nest.name}
-                      </div>
-                    </Dropdown.Item>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
-            </Nav.Item>
-          */}
         </Nav>
       </div>
     );
   }
-
-  /*  Depricated: To be removed soon
-  componentDidMount() {
-    this.getNestsForUser();
-  }
-
-  getNestsForUser() {
-    API.graphql(graphqlOperation(queries.nests)).then((value) => {
-      if (value.data.nests) {
-        const nests = value.data.nests.map((nest) => this.parseNest(nest));
-        this.setState({ nests: nests });
-      }
-    });
-  }
-
-  handleClicked(nest) {
-    if (nest.nestId) {
-      this.props.history.push({
-        pathname: `/nests/${nest.nestId}`,
-      });
-    }
-  }
-
-  parseNest(nest) {
-    return { name: nest.name, nestId: nest.nestId };
-  }
-  */
 }
 
 export default withRouter(SideBar);
