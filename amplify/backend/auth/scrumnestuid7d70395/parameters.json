@@ -1,5 +1,5 @@
 {
-  "authSelections": "userPoolOnly",
+  "authSelections": "identityPoolAndUserPool",
   "resourceName": "scrumnestuid7d70395",
   "serviceType": "imported",
   "region": "us-east-1"

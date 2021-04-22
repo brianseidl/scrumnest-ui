@@ -29,6 +29,10 @@ class Stories extends Component {
     return (
       <React.Fragment>
         <h1 className="display-6 text-black text-center nest-title">Stories</h1>
+
+        {/* TODO: Move this link to somewhere nicer */}
+        <a href={`/nests/${this.state.nestId}`}>Back to Nest</a>
+
         <Container id="board-container" className="container-height">
           <table className="table table-striped">
             <thead>
