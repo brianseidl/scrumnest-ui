@@ -17,7 +17,14 @@
           "userPoolId": "us-east-1_LOLfxPkS9",
           "userPoolName": "ScrumNestAppSync-dev-user-pool",
           "webClientId": "7q060ri4fk7di549e7kpms9aee",
-          "nativeClientId": "48hnhghv770a2786l5oprid8ff"
+          "nativeClientId": "7q060ri4fk7di549e7kpms9aee",
+          "identityPoolId": "us-east-1:c33cb328-e903-4354-b72c-01bedd26cb22",
+          "identityPoolName": "ScrumNestAppSync_dev",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::337451035854:role/ScrumNestAppSync-dev-CognitoAuthRole-U7S3N6YI41GI",
+          "authRoleName": "ScrumNestAppSync-dev-CognitoAuthRole-U7S3N6YI41GI",
+          "unauthRoleArn": "arn:aws:iam::337451035854:role/ScrumNestAppSync-dev-CognitoUnAuthRole-HWGOE159J8ZO",
+          "unauthRoleName": "ScrumNestAppSync-dev-CognitoUnAuthRole-HWGOE159J8ZO"
         }
       },
       "storage": {
@@ -46,7 +53,14 @@
           "userPoolId": "us-east-1_7g7GJb6Za",
           "userPoolName": "ScrumNestAppSync-prod-user-pool",
           "webClientId": "35i0e4s09qakerb4m52km5v86e",
-          "nativeClientId": "802uni8f75rcptjtg2va7ljh9"
+          "nativeClientId": "35i0e4s09qakerb4m52km5v86e",
+          "identityPoolId": "us-east-1:9389378c-dfc1-4fde-9438-fa5af8732a17",
+          "identityPoolName": "ScrumNestAppSync_prod",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::337451035854:role/ScrumNestAppSync-prod-CognitoAuthRole-1OO6XXVOLSEWI",
+          "authRoleName": "ScrumNestAppSync-prod-CognitoAuthRole-1OO6XXVOLSEWI",
+          "unauthRoleArn": "arn:aws:iam::337451035854:role/ScrumNestAppSync-prod-CognitoUnAuthRole-14PXQ8D9BWK0L",
+          "unauthRoleName": "ScrumNestAppSync-prod-CognitoUnAuthRole-14PXQ8D9BWK0L"
         }
       },
       "storage": {
