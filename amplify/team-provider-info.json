@@ -77,6 +77,12 @@
           "webClientId": "692fhs6jnng79vba1q9tpkk20p",
           "nativeClientId": "692fhs6jnng79vba1q9tpkk20p"
         }
+      },
+      "storage": {
+        "scrumnestui8372664f": {
+          "bucketName": "144290940122-scrumnest-files-dev",
+          "region": "us-east-1"
+        }
       }
     }
   },

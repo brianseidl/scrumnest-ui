@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form } from 'react-bootstrap';
 import Comment from './Comment';
+import Button from "react-bootstrap/Button";
 
 class Comments extends Component {
   state = {  }
@@ -9,7 +10,7 @@ class Comments extends Component {
       <React.Fragment>
         <Form.Label className="form-control-label row">{'Comments'} 
           <div className="px-2">
-           <i className="fa fa-plus-square-o" aria-hidden="true" onClick={() => this.props.onAddComment()}></i>
+           <Button onClick={() => this.props.onAddComment()}><i className="fa fa-plus-square-o" aria-hidden="true"></i></Button>
           </div>
         </Form.Label>
 

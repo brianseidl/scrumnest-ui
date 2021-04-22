@@ -13,8 +13,12 @@ class Comment extends Component {
             {
               this.props.comment.enabled &&
                 <div className="float-right">
-                  <i className="fa fa-floppy-o px-2" aria-hidden="true"></i>
-                  <i className="fa fa-trash-o" aria-hidden="true"></i>
+                  <button>
+                    <i className="fa fa-floppy-o px-2" aria-hidden="true"></i>
+                  </button>
+                  <button>
+                    <i className="fa fa-trash-o" aria-hidden="true"></i>
+                  </button>
                 </div>
             }
           </Form.Label>

@@ -5,6 +5,8 @@ import Comments from '../../components/Comments/Comments';
 import { Auth, Storage } from "aws-amplify";
 import _ from 'lodash';
 import Button from "react-bootstrap/Button";
+import { ulid } from 'ulid'
+import * as mutations from "../../graphql/mutations";
 
 import { API, graphqlOperation } from "aws-amplify";
 
@@ -13,6 +15,7 @@ import * as queries from "../../graphql/queries";
 class Story extends Component {
 
   currentUser = null;
+  currentUserCredentials = null;
 
   constructor(props) {
     super(props);
@@ -25,15 +28,17 @@ class Story extends Component {
         comments: [],
         priority: "",
         effort: "",
-        createdAt: "",  // Should be changed to dateCreated... do some parsing?
+        createdAt: "",
         description: "",
-        attachments: null,
-        owner: "", //Should be assignee... must be changed
+        attachments: [],
+        owner: "",
         completionDate: "",
       },
     };
 
     this.currentUser = Auth.currentUserInfo().then(value => this.currentUser = value.username);
+    window.LOG_LEVEL = 'DEBUG'
+    // this.currentUserCredentials = Auth.currentUserCredentials().then(value => this.currentUserCredentials = value)
   }
 
   componentDidMount() {
@@ -74,7 +79,7 @@ class Story extends Component {
 
               <Form.Group controlId="date-created">
                 <Form.Label className="form-control-label">Date Created:</Form.Label>
-                <Form.Control className="m-2" type="input" value={this.state.story.createdAt} readOnly></Form.Control>
+                <Form.Control className="m-2" type="input" value={new Date(this.state.story.createdAt).toLocaleDateString()} readOnly></Form.Control>
               </Form.Group>
             </div>
 
@@ -91,6 +96,11 @@ class Story extends Component {
 
             <Form.Group controlId="attachments">
               <Form.Label className="form-control-label row">Attachments:</Form.Label>
+              {this.state.story.attachments.map(attachment => (
+                <div>
+                  <i className="fa fa-file" aria-hidden="true"></i>{attachment.name}
+                </div>
+              ))}
               <Form.Control className="file-field row" type="file" onChange={this.handleFileUpload}></Form.Control>
             </Form.Group>
 
@@ -173,8 +183,47 @@ class Story extends Component {
     this.setState({story: {...this.state.story, comments: comments}});
   }
 
-  handleFileUpload = (data) => {
-    // Storage.put();
+  handleFileUpload = (event) => {
+
+    console.log('DATA IS: ', event);
+    const file = event.target.files[0];
+    const fileType = file.type;
+    const extensionType = this.getFileExtension(file.name);
+
+    const id = `${ulid()}${extensionType}`;
+    Storage.put(id, file, {
+        level: 'protected',
+        contentType: fileType,
+      })
+      .then(value => {
+        this.saveFile(value.key, file.name);
+      console.log("RETURNED VALUE IS: ", value);
+    })
+    .catch(error => {
+      console.error("Error while uploading file to S3 bucket: ", error);
+      alert('An error occurred while uploading the file. Please try again.');
+    });
+  }
+
+  saveFile(fileID, name) {
+    
+    API.graphql(
+      graphqlOperation(mutations.addStoryAttachment, {
+        nestId: this.state.nestId,
+        storyId: this.state.storyId,
+        name: name,
+        key: fileID
+        })
+      )
+      .then((value) => {
+        console.log("ON SUCCESSFUL SEND TO GRAPHQL MUTATION: ", value);
+      }
+    )
+  }
+
+  getFileExtension(fileName) {
+    const beginningIndex = fileName.lastIndexOf('.');
+    return fileName.substr(beginningIndex);
   }
 
 }
