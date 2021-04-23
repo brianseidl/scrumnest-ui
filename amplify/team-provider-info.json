@@ -89,7 +89,14 @@
           "userPoolId": "us-east-1_o9ki34VuD",
           "userPoolName": "ScrumNestAppSync-dev-user-pool",
           "webClientId": "692fhs6jnng79vba1q9tpkk20p",
-          "nativeClientId": "692fhs6jnng79vba1q9tpkk20p"
+          "nativeClientId": "692fhs6jnng79vba1q9tpkk20p",
+          "identityPoolId": "us-east-1:75b68a6a-1448-4f6e-8439-b068a39cb2ef",
+          "identityPoolName": "ScrumNestAppSync_dev",
+          "allowUnauthenticatedIdentities": true,
+          "authRoleArn": "arn:aws:iam::144290940122:role/ScrumNestAppSync-dev-CognitoAuthRole-NCRTNTXG4BRS",
+          "authRoleName": "ScrumNestAppSync-dev-CognitoAuthRole-NCRTNTXG4BRS",
+          "unauthRoleArn": "arn:aws:iam::144290940122:role/ScrumNestAppSync-dev-CognitoUnAuthRole-1E1E68YNZD5VI",
+          "unauthRoleName": "ScrumNestAppSync-dev-CognitoUnAuthRole-1E1E68YNZD5VI"
         }
       },
       "storage": {

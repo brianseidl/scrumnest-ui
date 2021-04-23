@@ -408,9 +408,20 @@ li a.dropdown-toggle::after {
 }
 
 .file-field {
-  border: 2px dashed lightblue;
-  width: 100% !important;
-  height: 8rem !important;
+  width: 75% !important;
+}
+
+.attachments-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.attachment-icon {
+  cursor: pointer;
+}
+
+.attachment-icon:hover {
+  color: gray;
 }
 
 .comments-field {

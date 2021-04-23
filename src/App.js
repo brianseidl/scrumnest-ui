@@ -10,7 +10,6 @@ Amplify.configure(awsconfig);
 class App extends Component {
   async componentDidMount() {
     const { username } = await Auth.currentAuthenticatedUser();
-    Auth.configure({ identityPoolId: 'us-east-1:75b68a6a-1448-4f6e-8439-b068a39cb2ef' })
 
     this.setState({
       username,

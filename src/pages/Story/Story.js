@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Form } from 'react-bootstrap';
-import { PRIORITY, STATUS } from './StoryConstants';
-import Comments from '../../components/Comments/Comments';
-import { Auth, Storage } from "aws-amplify";
-import _ from 'lodash';
+import { Form } from "react-bootstrap";
+import { PRIORITY, STATUS } from "./StoryConstants";
+import Comments from "../../components/Comments/Comments";
+import Attachments from "../../components/Attachment/Attachments";
+import { Auth } from "aws-amplify";
+import _ from "lodash";
 import Button from "react-bootstrap/Button";
-import { ulid } from 'ulid'
 import * as mutations from "../../graphql/mutations";
 
 import { API, graphqlOperation } from "aws-amplify";
@@ -13,12 +13,12 @@ import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 
 class Story extends Component {
-
   currentUser = null;
   currentUserCredentials = null;
 
   constructor(props) {
     super(props);
+
     this.state = {
       nestId: this.props.match.params.nestId,
       storyId: this.props.match.params.storyId,
@@ -32,13 +32,14 @@ class Story extends Component {
         description: "",
         attachments: [],
         owner: "",
-        completionDate: "",
+        completedAt: "",
       },
+      enableAddComment: true,
     };
 
-    this.currentUser = Auth.currentUserInfo().then(value => this.currentUser = value.username);
-    window.LOG_LEVEL = 'DEBUG'
-    // this.currentUserCredentials = Auth.currentUserCredentials().then(value => this.currentUserCredentials = value)
+    this.currentUser = Auth.currentUserInfo().then(
+      (value) => (this.currentUser = value.username)
+    );
   }
 
   componentDidMount() {
@@ -50,7 +51,7 @@ class Story extends Component {
       })
     ).then((value) => {
       this.setState({ story: value.data.story });
-      console.log('STORY IS: ', this.state.story);
+      console.log("STORY IS: ", this.state.story);
     });
   }
 
@@ -70,84 +71,153 @@ class Story extends Component {
             <div className="row align-items-center pt-4">
               <Form.Group controlId="status">
                 <Form.Label className="form-control-label">Status:</Form.Label>
-                <Form.Control className="m-2" as="select" onChange={this.onChangeFieldState} value={this.state.story.status}>
-                  {STATUS.values.map(value => (
+                <Form.Control
+                  className="m-2"
+                  as="select"
+                  onChange={this.onChangeFieldState}
+                  value={this.state.story.status}
+                >
+                  {STATUS.values.map((value) => (
                     <option>{value}</option>
                   ))}
                 </Form.Control>
               </Form.Group>
 
               <Form.Group controlId="date-created">
-                <Form.Label className="form-control-label">Date Created:</Form.Label>
-                <Form.Control className="m-2" type="input" value={new Date(this.state.story.createdAt).toLocaleDateString()} readOnly></Form.Control>
+                <Form.Label className="form-control-label">
+                  Date Created:
+                </Form.Label>
+                <Form.Control
+                  className="m-2"
+                  type="input"
+                  value={new Date(
+                    this.state.story.createdAt
+                  ).toLocaleDateString()}
+                  readOnly
+                ></Form.Control>
               </Form.Group>
             </div>
 
             {/* To be implemented epic linked with field... for now just a placeholder */}
-            <Form.Group className="row align-items-center" controlId="epic-linked">
-              <Form.Label className="form-control-label">Epic Linked With:</Form.Label>
-              <Form.Control className="m-2" type="input" value={""} readOnly></Form.Control>
+            <Form.Group
+              className="row align-items-center"
+              controlId="sprint-linked"
+            >
+              <Form.Label className="form-control-label">
+                Sprint Linked With:
+              </Form.Label>
+              <Form.Control
+                className="m-2"
+                type="input"
+                value={""}
+                readOnly
+              ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="description">
-              <Form.Label className="form-control-label row">Description:</Form.Label>
-              <Form.Control className="description-field-width-height row" as="textarea" value={this.state.story.description} onChange={this.onChangeFieldState}></Form.Control>
+              <Form.Label className="form-control-label row">
+                Description:
+              </Form.Label>
+              <Form.Control
+                className="description-field-width-height row"
+                as="textarea"
+                value={this.state.story.description}
+                onChange={this.onChangeFieldState}
+              ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="attachments">
-              <Form.Label className="form-control-label row">Attachments:</Form.Label>
-              {this.state.story.attachments.map(attachment => (
-                <div>
-                  <i className="fa fa-file" aria-hidden="true"></i>{attachment.name}
-                </div>
-              ))}
-              <Form.Control className="file-field row" type="file" onChange={this.handleFileUpload}></Form.Control>
+              <Attachments
+                saveFile={this.saveFile.bind(this)}
+                attachments={this.state.story.attachments}
+              ></Attachments>
             </Form.Group>
 
             <Form.Group controlId="comments">
-              <Comments onAddComment={this.handleAddComment} comments={this.state.story.comments}></Comments>
-            </Form.Group>       
+              <Comments
+                onAddComment={this.handleAddComment}
+                saveComment={this.saveComment}
+                deleteComment={this.deleteComment}
+                comments={this.state.story.comments}
+              ></Comments>
+            </Form.Group>
           </div>
 
           <div>
             <Form.Group className="pt-4" controlId="priority">
-              <Form.Label className="form-control-label row">Priority:</Form.Label>
-              <Form.Control as="select" onChange={this.onChangeFieldState} value={this.state.story.priority}>
-                {PRIORITY.values.map(value => (
+              <Form.Label className="form-control-label row">
+                Priority:
+              </Form.Label>
+              <Form.Control
+                as="select"
+                onChange={this.onChangeFieldState}
+                value={this.state.story.priority}
+              >
+                {PRIORITY.values.map((value) => (
                   <option>{value}</option>
                 ))}
               </Form.Control>
             </Form.Group>
 
             <Form.Group controlId="owner">
-              <Form.Label className="form-control-label row">Assignee:</Form.Label>
-              <Form.Control type="input" onChange={this.onChangeFieldState} value={this.state.story.owner}></Form.Control>
+              <Form.Label className="form-control-label row">
+                Assignee:
+              </Form.Label>
+              <Form.Control
+                type="input"
+                onChange={this.onChangeFieldState}
+                value={this.state.story.owner}
+              ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="effort">
-              <Form.Label className="form-control-label row">Effort:</Form.Label>
-              <Form.Control type="input" onChange={this.onChangeFieldState} value={this.state.story.effort}></Form.Control>
+              <Form.Label className="form-control-label row">
+                Effort:
+              </Form.Label>
+              <Form.Control
+                type="input"
+                onChange={this.onChangeFieldState}
+                value={this.state.story.effort}
+              ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="completionDate">
-              <Form.Label className="form-control-label row">To Be Completed By:</Form.Label>
-              <Form.Control type="input" onChange={this.onChangeFieldState} value={this.state.story.completionDate}></Form.Control>
+              <Form.Label className="form-control-label row">
+                To Be Completed By:
+              </Form.Label>
+              <Form.Control
+                type="input"
+                onChange={this.onChangeFieldState}
+                type="date"
+                value={this.state.story.completedAt}
+              ></Form.Control>
             </Form.Group>
 
-            {/* This is just placeholder information until we get the gitHub hooks working... */}
-            <Form.Group controlId="gitHub">
+            {/* This is just placeholder information until we get the gitHub hooks working... comment out for now. TO-DO */}
+            {/* <Form.Group controlId="gitHub">
               <Form.Label className="form-control-label row">Code History:</Form.Label>
               <Form.Label className="row" type="input">{"1 Branch"}</Form.Label>
               <Form.Label className="row" type="input">{"3 Commits"}</Form.Label>
               <Form.Label className="row" type="input">{"1 Pull Request [Open]"}</Form.Label>
-            </Form.Group>
+            </Form.Group> */}
           </div>
 
           <div className="center py-3">
-            <Button variant="primary" className="mx-4 px-3">Finish</Button>
-            <Button variant="secondary" className="mx-4 px-3">Discard</Button>  
-          </div>  
-          
+            <Button
+              variant="primary"
+              className="mx-4 px-3"
+              onClick={this.saveUserStory}
+            >
+              Finish
+            </Button>
+            <Button
+              variant="secondary"
+              className="mx-4 px-3"
+              onClick={this.discardUserStory}
+            >
+              Discard
+            </Button>
+          </div>
         </Form>
       </React.Fragment>
     );
@@ -155,7 +225,7 @@ class Story extends Component {
 
   /**
    * Generically handles all changes for the form control values
-   * @param event 
+   * @param event
    */
   onChangeFieldState = (event) => {
     const fieldName = event.target.id;
@@ -164,68 +234,99 @@ class Story extends Component {
     const updatedPropertyObj = {};
     updatedPropertyObj[fieldName] = value;
 
-    this.setState({story: {...this.state.story, ...updatedPropertyObj}})
-  }
+    this.setState({ story: { ...this.state.story, ...updatedPropertyObj } });
+  };
 
   handleAddComment = (data) => {
+    if (!this.state.enableAddComment) {
+      alert(
+        "You cannot add multiple comments at a time. Please finish drafting the current one."
+      );
+      return;
+    }
 
     const comments = _.cloneDeep(this.state.story.comments);
-    
+
     const newCommentObj = {
       username: this.currentUser,
       content: "",
       createdAt: new Date(Date.now()).toLocaleString(),
       enabled: true,
-    }
-    
-    comments.unshift(newCommentObj)
-    
-    this.setState({story: {...this.state.story, comments: comments}});
-  }
+    };
 
-  handleFileUpload = (event) => {
+    comments.unshift(newCommentObj);
 
-    console.log('DATA IS: ', event);
-    const file = event.target.files[0];
-    const fileType = file.type;
-    const extensionType = this.getFileExtension(file.name);
-
-    const id = `${ulid()}${extensionType}`;
-    Storage.put(id, file, {
-        level: 'protected',
-        contentType: fileType,
-      })
-      .then(value => {
-        this.saveFile(value.key, file.name);
-      console.log("RETURNED VALUE IS: ", value);
-    })
-    .catch(error => {
-      console.error("Error while uploading file to S3 bucket: ", error);
-      alert('An error occurred while uploading the file. Please try again.');
+    this.setState({
+      story: { ...this.state.story, comments: comments },
+      enableAddComment: false,
     });
-  }
+  };
 
   saveFile(fileID, name) {
-    
     API.graphql(
       graphqlOperation(mutations.addStoryAttachment, {
         nestId: this.state.nestId,
         storyId: this.state.storyId,
         name: name,
-        key: fileID
-        })
-      )
-      .then((value) => {
-        console.log("ON SUCCESSFUL SEND TO GRAPHQL MUTATION: ", value);
-      }
-    )
+        key: fileID,
+      })
+    ).then((value) => {
+      this.setState({ story: value.data.addStoryAttachment });
+      alert("File uploaded successfully!");
+    });
   }
 
-  getFileExtension(fileName) {
-    const beginningIndex = fileName.lastIndexOf('.');
-    return fileName.substr(beginningIndex);
-  }
+  saveComment = (comment) => {
+    API.graphql(
+      graphqlOperation(mutations.addComment, {
+        nestId: this.state.nestId,
+        storyId: this.state.storyId,
+        comment: comment.content,
+      })
+    ).then((value) => {
+      this.setState({ enableAddComment: true, story: value.data.addComment });
+    });
+  };
 
+  deleteComment = (comment) => {
+    const comments = _.cloneDeep(this.state.story.comments);
+    comments.shift();
+    this.setState({
+      enableAddComment: true,
+      story: { ...this.state.story, comments: comments },
+    });
+  };
+
+  saveUserStory = () => {
+    if (!this.state.enableAddComment) {
+      alert(
+        "You have an open comment right now. Discard or save prior to proceeding."
+      );
+    }
+
+    // TO-DO: Create 'Completed At' field and do we want to send comments via this mutation?
+    API.graphql(
+      graphqlOperation(mutations.updateStory, {
+        nestId: this.state.nestId,
+        storyId: this.state.storyId,
+        status: this.state.story.status,
+        description: this.state.story.description,
+        priority: this.state.story.priority,
+        effort: this.state.story.effort,
+        owner: this.state.story.owner,
+      })
+    ).then((value) => {
+      alert("Form was submitted.");
+      this.props.history.goBack();
+    });
+
+    // TO-DO add a nicer dialog to say form was submitted.
+  };
+
+  discardUserStory = () => {
+    // TO-DO: add in an 'Are you sure' dialog prior to discarding... for now just exit out.
+    this.props.history.goBack();
+  };
 }
 
 export default Story;
