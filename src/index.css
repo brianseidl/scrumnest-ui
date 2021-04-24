@@ -282,6 +282,28 @@ li a.dropdown-toggle::after {
 
 /* Form Control Classes */
 
+.side-by-side {
+  display: flex;
+}
+
+.form-control-label {
+  font-size: 20px;
+}
+
+.form-group {
+  padding-right: 2%;
+  padding-left: 2%;
+}
+
+.form-label-padding {
+  padding-left: 2%;
+}
+
+.form-control {
+  display: inline !important;
+  width: fit-content !important;
+}
+
 /* End Form Control Classes */
 
 /* Amplify Classes */
@@ -373,3 +395,55 @@ li a.dropdown-toggle::after {
   pointer-events: none;
   opacity: 0.6;
 }
+/* User Story Page Classes */
+
+.description-field-width-height {
+  width: 100% !important;
+  height: 20rem !important;
+}
+
+.left-container {
+  width: 75%;
+  float: left;
+}
+
+.file-field {
+  width: 75% !important;
+}
+
+.attachments-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.attachment-icon {
+  cursor: pointer;
+}
+
+.attachment-icon:hover {
+  color: gray;
+}
+
+.comments-field {
+  width: 100% !important;
+  height: 12rem !important;
+  overflow-y: auto;
+}
+
+.comment-field {
+  width: 100% !important;
+  height: 6rem !important;
+  /* margin: auto !important; */
+}
+
+.comment-label {
+  display: inherit !important;
+  width: 100%;
+}
+
+.center {
+  margin: auto;
+  width: 50%;
+}
+
+/* End User Story Page Classes */
