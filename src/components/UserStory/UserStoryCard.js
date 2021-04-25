@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import { Draggable } from "react-beautiful-dnd";
+import Button from "react-bootstrap/Button";
 
-import ConfirmButton from "../Dialogs/ConfirmButton";
+import { showYesNoDialog } from "../../components/Dialogs/service/DialogService";
 
 import { API, graphqlOperation } from "aws-amplify";
 import * as mutations from "../../graphql/mutations";
@@ -43,12 +44,13 @@ class UserStoryCard extends Component {
                 >
                   View
                 </a>{" "}
-                <ConfirmButton
-                  label="Delete"
-                  question="Confirm delete"
-                  className="user-story-desc-text btn-danger"
+                <Button
+                  className="user-story-desc-text"
+                  variant="danger"
                   onClick={this.deleteStory}
-                />
+                >
+                  Delete
+                </Button>
               </Card.Body>
             </Card>
           </div>
@@ -70,13 +72,17 @@ class UserStoryCard extends Component {
   }
 
   deleteStory = (event) => {
-    API.graphql(
-      graphqlOperation(mutations.deleteStory, {
-        nestId: this.props.nestId,
-        storyId: this.props.userStory.id,
-      })
-    ).then((value) => {
-      // pass?
+    showYesNoDialog().then((continueDeletion) => {
+      if (continueDeletion) {
+        API.graphql(
+          graphqlOperation(mutations.deleteStory, {
+            nestId: this.props.nestId,
+            storyId: this.props.userStory.id,
+          })
+        ).then((value) => {
+          // pass?
+        });
+      }
     });
   };
 }

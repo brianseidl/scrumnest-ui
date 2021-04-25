@@ -39,7 +39,7 @@ class Nests extends Component {
             <tbody>
               {this.state.nests.map((nest) => {
                 return (
-                  <tr>
+                  <tr key={`${nest.nestId}`}>
                     <td>
                       <a href={`/nests/${nest.nestId}`}>{nest.nestId}</a>
                     </td>

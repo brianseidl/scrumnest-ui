@@ -7,9 +7,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Nav, Dropdown } from "react-bootstrap";
 import classNames from "classnames";
-import { createBoardData } from "./SideBarConstant";
 import { AmplifySignOut } from "@aws-amplify/ui-react";
 import { withRouter } from "react-router-dom";
+import { showCreateNestDialog } from "../../components/Dialogs/service/DialogService";
 
 class SideBar extends Component {
   state = {
@@ -56,7 +56,7 @@ class SideBar extends Component {
 
         <Nav className="flex-column pt-2">
           <Nav.Item className="active">
-            <Nav.Link onClick={() => this.props.showDialog(createBoardData)}>
+            <Nav.Link onClick={this.handleCreateNest}>
               <FontAwesomeIcon icon={faClipboard} className="mr-2" />
               Create Nest
             </Nav.Link>
@@ -74,6 +74,14 @@ class SideBar extends Component {
       </div>
     );
   }
+
+  handleCreateNest = () => {
+    showCreateNestDialog().then((response) => {
+      if (response && response.createdNest) {
+        this.props.history.push(`/nests/${response.nestId}`);
+      }
+    });
+  };
 }
 
 export default withRouter(SideBar);

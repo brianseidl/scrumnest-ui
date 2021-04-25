@@ -1,11 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import BaseDialogComponent from "../BaseDialogComponent";
 
 // Used for dialogs that require only radio buttons as selectable values
-class YesNoDialog extends Component {
+class YesNoDialog extends BaseDialogComponent {
   state = {
-    selected: {},
+    show: false,
   };
 
   wrapperDiv = null;
@@ -18,19 +19,16 @@ class YesNoDialog extends Component {
   render() {
     return (
       <div ref={this.wrapperRef}>
-        <Modal show={true} onHide={() => this.props.onClose()}>
+        <Modal show={this.state.show} onHide={() => this.handleClose(false)}>
           <Modal.Header>
             <Modal.Title>{this.props.dialog.title}</Modal.Title>
           </Modal.Header>
 
           <Modal.Footer>
-            <Button variant="primary" onClick={() => this.props.onClose(true)}>
+            <Button variant="primary" onClick={() => this.handleClose(true)}>
               Yes
             </Button>
-            <Button
-              variant="secondary"
-              onClick={() => this.props.onClose(false)}
-            >
+            <Button variant="secondary" onClick={() => this.handleClose(false)}>
               No
             </Button>
           </Modal.Footer>

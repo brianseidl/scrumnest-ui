@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { yesNoData } from "./TeamPageConstants";
 import PendingCards from "../../components/Cards/PendingCards";
 import MemberCards from "../../components/Cards/MemberCards";
-import YesNoDialog from "../../components/Dialogs/YesNoDialog";
+import { showYesNoDialog } from "../../components/Dialogs/service/DialogService";
 import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 import * as mutations from "../../graphql/mutations";
@@ -106,14 +105,6 @@ class Team extends Component {
 
             <div className="col">
               <h3>Members</h3>
-
-              {this.state.show && (
-                <YesNoDialog
-                  dialog={yesNoData}
-                  onClose={this.handleCloseYesNoDialog}
-                />
-              )}
-
               <hr class="team-line" />
               <MemberCards
                 cards={this.state.members}
@@ -128,7 +119,11 @@ class Team extends Component {
   }
 
   handleShowDialog = (member) => {
-    this.setState({ show: true, selectedMember: member });
+    this.setState({ selectedMember: member });
+
+    showYesNoDialog().then((deleteMember) => {
+      this.handleCloseYesNoDialog(deleteMember);
+    });
   };
 
   handleCloseYesNoDialog = (deleteMember) => {

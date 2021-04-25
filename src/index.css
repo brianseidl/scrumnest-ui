@@ -304,6 +304,19 @@ li a.dropdown-toggle::after {
   width: fit-content !important;
 }
 
+.form-control.effort-field {
+  width: 5rem !important;
+  margin-right: 0.5%;
+}
+
+.form-control.assignee-field {
+  width: 12rem !important;
+}
+
+.form-control.full-width-field {
+  width: 80% !important;
+}
+
 /* End Form Control Classes */
 
 /* Amplify Classes */
