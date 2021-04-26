@@ -29,7 +29,7 @@ class Story extends Component {
         description: "",
         attachments: [],
         owner: "",
-        completedAt: "",
+        dateToBeCompleted: "",
       },
       enableAddComment: true,
       users: [],
@@ -44,7 +44,17 @@ class Story extends Component {
         storyId: this.state.storyId,
       })
     ).then((value) => {
-      this.setState({ story: value.data.story });
+      let dateToBeCompleted = "";
+      let story = value.data.story;
+
+      if (value.data.story) {
+        dateToBeCompleted = this.parseDateToBeCompleted(
+          value.data.story.dateToBeCompleted
+        );
+        story = { ...story, dateToBeCompleted: dateToBeCompleted };
+      }
+
+      this.setState({ story: story });
     });
 
     // Get Nest users on page load... is there a better way to implement this than just calling
@@ -198,14 +208,14 @@ class Story extends Component {
               <Form.Label>Days</Form.Label>
             </Form.Group>
 
-            <Form.Group controlId="completedAt">
+            <Form.Group controlId="dateToBeCompleted">
               <Form.Label className="form-control-label row">
                 To Be Completed By:
               </Form.Label>
               <Form.Control
                 onChange={this.onChangeFieldState}
                 type="date"
-                value={this.state.story.completedAt}
+                value={this.state.story.dateToBeCompleted}
               ></Form.Control>
             </Form.Group>
 
@@ -330,7 +340,7 @@ class Story extends Component {
         priority: this.state.story.priority,
         effort: this.state.story.effort,
         owner: this.state.story.owner,
-        completedAt: this.state.story.completedAt,
+        dateToBeCompleted: this.state.story.dateToBeCompleted,
       })
     ).then((value) => {
       alert("User story was saved.");
@@ -347,6 +357,15 @@ class Story extends Component {
       }
     });
   };
+
+  parseDateToBeCompleted(dateToBeCompleted) {
+    if (dateToBeCompleted) {
+      const timeIndex = dateToBeCompleted.indexOf("T");
+      return dateToBeCompleted.substr(0, timeIndex);
+    }
+
+    return dateToBeCompleted;
+  }
 }
 
 export default Story;
