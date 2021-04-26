@@ -121,7 +121,11 @@ class Team extends Component {
   handleShowDialog = (member) => {
     this.setState({ selectedMember: member });
 
-    showYesNoDialog().then((deleteMember) => {
+    const message = member.username
+      ? `Are you sure you want to remove ${member.username}?`
+      : "Are you sure you want to remove this user?";
+
+    showYesNoDialog(message).then((deleteMember) => {
       this.handleCloseYesNoDialog(deleteMember);
     });
   };

@@ -72,7 +72,9 @@ class UserStoryCard extends Component {
   }
 
   deleteStory = (event) => {
-    showYesNoDialog().then((continueDeletion) => {
+    const message = `Are you sure you want to delete ${this.props.userStory.title}?`;
+
+    showYesNoDialog(message).then((continueDeletion) => {
       if (continueDeletion) {
         API.graphql(
           graphqlOperation(mutations.deleteStory, {

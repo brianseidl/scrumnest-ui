@@ -351,7 +351,9 @@ class Story extends Component {
   };
 
   discardUserStory = () => {
-    showYesNoDialog().then((response) => {
+    const message = "Are you sure you want to discard and lose any changes?";
+
+    showYesNoDialog(message).then((response) => {
       if (response) {
         this.props.history.goBack();
       }

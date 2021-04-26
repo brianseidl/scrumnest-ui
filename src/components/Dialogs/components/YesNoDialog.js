@@ -24,6 +24,10 @@ class YesNoDialog extends BaseDialogComponent {
             <Modal.Title>{this.props.dialog.title}</Modal.Title>
           </Modal.Header>
 
+          <Modal.Body>
+            <p>{this.props.dialog.body}</p>
+          </Modal.Body>
+
           <Modal.Footer>
             <Button variant="primary" onClick={() => this.handleClose(true)}>
               Yes

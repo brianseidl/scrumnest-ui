@@ -3,12 +3,13 @@ import CreateStoryModal from "../components/CreateStoryModal";
 import CreateNestDialog from "../components/CreateNestDialog";
 
 // Service that will call various dialog types to appear dynamically
-export function showYesNoDialog() {
+export function showYesNoDialog(message) {
   const data = {
     type: YesNoDialog,
     closeButton: true,
     title: "Are you sure?",
     show: true,
+    body: message,
   };
 
   return YesNoDialog.create(data).show();
