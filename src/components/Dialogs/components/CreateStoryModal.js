@@ -1,17 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
+import BaseDialogComponent from "../BaseDialogComponent";
+
 import { API, graphqlOperation } from "aws-amplify";
 
-import * as mutations from "../../graphql/mutations";
+import * as mutations from "../../../graphql/mutations";
 
-class CreateStoryModal extends Component {
+class CreateStoryModal extends BaseDialogComponent {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
+      show: true,
     };
   }
 
@@ -26,20 +29,17 @@ class CreateStoryModal extends Component {
     // make mutation call to API
     API.graphql(
       graphqlOperation(mutations.createStory, {
-        nestId: this.props.nestId,
+        nestId: this.props.dialog.nestId,
         title: this.state.title,
       })
     ).then((value) => {
-      // pass?
+      this.handleClose(value);
     });
-
-    this.props.closeModal();
-    this.setState({ title: "" });
   };
 
   render() {
     return (
-      <Modal show={this.props.isOpen} onHide={this.props.closeModal}>
+      <Modal show={this.state.show} onHide={() => this.handleClose(null)}>
         <Modal.Header closeButton>
           <Modal.Title>Create New Story</Modal.Title>
         </Modal.Header>

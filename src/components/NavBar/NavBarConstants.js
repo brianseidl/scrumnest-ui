@@ -7,12 +7,12 @@ const navBarItemsModel = [
     icon: "fa fa-users",
     displayDialogComponent: false,
   },
-  {
-    id: 2,
-    route: null,
-    icon: "fa fa-bars",
-    displayDialogComponent: true,
-  },
+  // {
+  //   id: 2,
+  //   route: null,
+  //   icon: "fa fa-bars",
+  //   displayDialogComponent: true,
+  // },
   {
     id: 3,
     route: "/",

@@ -3,21 +3,15 @@ import NavBarItem from "./NavBarItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
 import { Navbar, Button } from "react-bootstrap";
-import { Redirect } from "react-router";
-import { navBarItemsModel, dialogData } from "./NavBarConstants";
+import { navBarItemsModel } from "./NavBarConstants";
+import { withRouter } from "react-router-dom";
 
 class NavBar extends Component {
   state = {
     navBarItems: navBarItemsModel,
-    redirect: false,
-    redirectRoute: "",
   };
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect push to={this.state.redirectRoute} />;
-    }
-
     return (
       <Navbar
         bg="light"
@@ -55,27 +49,11 @@ class NavBar extends Component {
     );
   }
 
-  componentDidUpdate() {
-    if (this.state.redirect) {
-      this.resetRedirectState();
-    }
-  }
-
-  resetRedirectState() {
-    this.setState({ ...this.state, redirect: false, redirectRoute: "" });
-  }
-
   handleClicked = (navBarItem) => {
-    if (navBarItem.displayDialogComponent) {
-      this.props.showDialog(dialogData);
-    } else if (navBarItem.route) {
-      this.setState({
-        ...this.state,
-        redirect: true,
-        redirectRoute: navBarItem.route,
-      });
+    if (navBarItem.route) {
+      this.props.history.push(navBarItem.route);
     }
   };
 }
 
-export default NavBar;
+export default withRouter(NavBar);

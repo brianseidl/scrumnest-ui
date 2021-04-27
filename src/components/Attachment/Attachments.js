@@ -5,6 +5,9 @@ import { ulid } from "ulid";
 import { Storage } from "aws-amplify";
 
 class Attachments extends Component {
+  FILE_SIZE_LIMIT_MB = 5;
+  MB_TO_BYTE_CONVERSION = 1000000;
+
   render() {
     return (
       <React.Fragment>
@@ -12,6 +15,7 @@ class Attachments extends Component {
         <div className="attachments-container">
           {this.props.attachments.map((attachment) => (
             <Attachment
+              key={attachment.name}
               attachment={attachment}
               getFile={this.getFileFromS3Bucket}
             ></Attachment>
@@ -33,6 +37,15 @@ class Attachments extends Component {
     const file = event.target.files[0];
 
     if (!file) {
+      return;
+    }
+
+    const fileSizeInMB = file.size / this.MB_TO_BYTE_CONVERSION;
+
+    if (fileSizeInMB >= this.FILE_SIZE_LIMIT_MB) {
+      alert(
+        "The file attempting to be uploaded is larger than 5MB. Please choose a smaller file."
+      );
       return;
     }
 

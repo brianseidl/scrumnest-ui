@@ -3,19 +3,16 @@ import { Form } from "react-bootstrap";
 import { PRIORITY, STATUS } from "./StoryConstants";
 import Comments from "../../components/Comments/Comments";
 import Attachments from "../../components/Attachment/Attachments";
-import { Auth } from "aws-amplify";
 import _ from "lodash";
 import Button from "react-bootstrap/Button";
 import * as mutations from "../../graphql/mutations";
+import { showYesNoDialog } from "../../components/Dialogs/service/DialogService";
 
 import { API, graphqlOperation } from "aws-amplify";
 
 import * as queries from "../../graphql/queries";
 
 class Story extends Component {
-  currentUser = null;
-  currentUserCredentials = null;
-
   constructor(props) {
     super(props);
 
@@ -32,14 +29,11 @@ class Story extends Component {
         description: "",
         attachments: [],
         owner: "",
-        completedAt: "",
+        dateToBeCompleted: "",
       },
       enableAddComment: true,
+      users: [],
     };
-
-    this.currentUser = Auth.currentUserInfo().then(
-      (value) => (this.currentUser = value.username)
-    );
   }
 
   componentDidMount() {
@@ -50,8 +44,27 @@ class Story extends Component {
         storyId: this.state.storyId,
       })
     ).then((value) => {
-      this.setState({ story: value.data.story });
-      console.log("STORY IS: ", this.state.story);
+      let dateToBeCompleted = "";
+      let story = value.data.story;
+
+      if (value.data.story) {
+        dateToBeCompleted = this.parseDateToBeCompleted(
+          value.data.story.dateToBeCompleted
+        );
+        story = { ...story, dateToBeCompleted: dateToBeCompleted };
+      }
+
+      this.setState({ story: story });
+    });
+
+    // Get Nest users on page load... is there a better way to implement this than just calling
+    // for the entire nest?
+    API.graphql(
+      graphqlOperation(queries.nest, {
+        nestId: this.state.nestId,
+      })
+    ).then((nest) => {
+      this.setState({ users: nest.data.nest.users });
     });
   }
 
@@ -78,7 +91,7 @@ class Story extends Component {
                   value={this.state.story.status}
                 >
                   {STATUS.values.map((value) => (
-                    <option>{value}</option>
+                    <option key={value}>{value}</option>
                   ))}
                 </Form.Control>
               </Form.Group>
@@ -164,10 +177,22 @@ class Story extends Component {
                 Assignee:
               </Form.Label>
               <Form.Control
-                type="input"
+                as="select"
                 onChange={this.onChangeFieldState}
                 value={this.state.story.owner}
-              ></Form.Control>
+                className="assignee-field"
+              >
+                {this.state.users.map((user) => {
+                  if (user) {
+                    return (
+                      <option key={`${user.username}-id`}>
+                        {user.username}
+                      </option>
+                    );
+                  }
+                  return null;
+                })}
+              </Form.Control>
             </Form.Group>
 
             <Form.Group controlId="effort">
@@ -176,20 +201,21 @@ class Story extends Component {
               </Form.Label>
               <Form.Control
                 type="input"
+                className="effort-field"
                 onChange={this.onChangeFieldState}
                 value={this.state.story.effort}
               ></Form.Control>
+              <Form.Label>Days</Form.Label>
             </Form.Group>
 
-            <Form.Group controlId="completionDate">
+            <Form.Group controlId="dateToBeCompleted">
               <Form.Label className="form-control-label row">
                 To Be Completed By:
               </Form.Label>
               <Form.Control
-                type="input"
                 onChange={this.onChangeFieldState}
                 type="date"
-                value={this.state.story.completedAt}
+                value={this.state.story.dateToBeCompleted}
               ></Form.Control>
             </Form.Group>
 
@@ -248,7 +274,7 @@ class Story extends Component {
     const comments = _.cloneDeep(this.state.story.comments);
 
     const newCommentObj = {
-      username: this.currentUser,
+      username: this.props.baseProps.userInfo.username,
       content: "",
       createdAt: new Date(Date.now()).toLocaleString(),
       enabled: true,
@@ -302,9 +328,9 @@ class Story extends Component {
       alert(
         "You have an open comment right now. Discard or save prior to proceeding."
       );
+      return;
     }
 
-    // TO-DO: Create 'Completed At' field and do we want to send comments via this mutation?
     API.graphql(
       graphqlOperation(mutations.updateStory, {
         nestId: this.state.nestId,
@@ -314,9 +340,10 @@ class Story extends Component {
         priority: this.state.story.priority,
         effort: this.state.story.effort,
         owner: this.state.story.owner,
+        dateToBeCompleted: this.state.story.dateToBeCompleted,
       })
     ).then((value) => {
-      alert("Form was submitted.");
+      alert("User story was saved.");
       this.props.history.goBack();
     });
 
@@ -324,9 +351,23 @@ class Story extends Component {
   };
 
   discardUserStory = () => {
-    // TO-DO: add in an 'Are you sure' dialog prior to discarding... for now just exit out.
-    this.props.history.goBack();
+    const message = "Are you sure you want to discard and lose any changes?";
+
+    showYesNoDialog(message).then((response) => {
+      if (response) {
+        this.props.history.goBack();
+      }
+    });
   };
+
+  parseDateToBeCompleted(dateToBeCompleted) {
+    if (dateToBeCompleted) {
+      const timeIndex = dateToBeCompleted.indexOf("T");
+      return dateToBeCompleted.substr(0, timeIndex);
+    }
+
+    return dateToBeCompleted;
+  }
 }
 
 export default Story;

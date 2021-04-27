@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 
 import UserStoryContainer from "../../components/UserStory/UserStoryContainer";
 import { NEST_MODEL } from "./NestConstants";
-import CreateStoryModal from "../../components/Dialogs/CreateStoryModal";
+import { showCreateStoryDialog } from "../../components/Dialogs/service/DialogService";
 
 import { DragDropContext } from "react-beautiful-dnd";
 import { API, graphqlOperation } from "aws-amplify";
@@ -62,11 +62,6 @@ class Nest extends Component {
             </DragDropContext>
           </Row>
         </Container>
-        <CreateStoryModal
-          closeModal={this.closeModal}
-          isOpen={this.state.isModalOpen}
-          nestId={this.state.nestId}
-        />
       </React.Fragment>
     );
   }
@@ -249,9 +244,11 @@ class Nest extends Component {
     });
   }
 
-  // for the create story modal
-  openModal = () => this.setState({ isModalOpen: true });
-  closeModal = () => this.setState({ isModalOpen: false });
+  openModal = () => {
+    showCreateStoryDialog(this.state.nestId).then((value) => {
+      // Do nothing...
+    });
+  };
 }
 
 export default Nest;

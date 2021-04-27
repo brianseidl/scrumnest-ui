@@ -1,6 +1,7 @@
 import React, { Component, createRef } from "react";
 import Button from "react-bootstrap/Button";
 
+// DEPRECATED In favor of the YesNoDialog for now...
 class ConfirmButton extends Component {
   confirmRef = createRef();
 

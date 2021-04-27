@@ -8,18 +8,22 @@ import "./index.css";
 
 Amplify.configure(awsconfig);
 class App extends Component {
+  state = {
+    userInfo: null,
+  };
+
   async componentDidMount() {
-    const { username } = await Auth.currentAuthenticatedUser();
+    const userInfo = await Auth.currentUserInfo();
 
     this.setState({
-      username,
+      userInfo,
     });
   }
 
   render() {
     return (
       <div>
-        <Layout />
+        <Layout userInfo={this.state.userInfo} />
       </div>
     );
   }
