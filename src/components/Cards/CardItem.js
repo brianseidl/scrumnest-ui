@@ -5,9 +5,11 @@ const CardItem = ({ cardItem, onClicked }) => {
     <React.Fragment>
       <div className="card h-100">
         <img
-          className="card-img-top"
+          className="card-img-top p-2"
           src={cardItem.imgSrc}
           alt={cardItem.alt}
+          height="200"
+          width="200"
         />
         <div className="card-body">
           <h4 className="card-title">{cardItem.title}</h4>
@@ -16,7 +18,7 @@ const CardItem = ({ cardItem, onClicked }) => {
         <div className="card-footer">
           <a
             href={cardItem.buttonRoute}
-            onClick={() => onClicked(cardItem)}
+            onClick={() => onClicked(cardItem.route)}
             className="btn btn-primary"
           >
             {cardItem.buttonText}
