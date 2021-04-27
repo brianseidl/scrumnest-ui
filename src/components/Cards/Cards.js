@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CardItem from "./CardItem";
+import { withRouter } from "react-router-dom";
 
 class Cards extends Component {
   state = {};
@@ -18,9 +19,9 @@ class Cards extends Component {
     );
   }
 
-  handleClicked = (cardItem) => {
-    // TO-DO: Support handleClicked event for cards
+  handleClicked = (route) => {
+    this.props.history.push(route);
   };
 }
 
-export default Cards;
+export default withRouter(Cards);

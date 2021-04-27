@@ -2,28 +2,28 @@ const cardItems = [
   {
     title: "Nests",
     body:
-      "Learn more about what Nests are and how to get started creating a Nest.",
+      "Learn more about what nests are and how to get started creating a nest.",
     buttonText: "Find Out More!",
-    buttonRoute: "#",
-    imgSrc: "https://placehold.it/300x200",
+    route: "/learnMore/learnNests",
+    imgSrc: "/assets/scrum-board-example.png",
     alt: "Nests",
   },
   {
-    title: "Epics",
-    body:
-      "Learn more about how to create your very own epic and how to link user stories.",
+    title: "User Stories",
+    body: "Learn more about how to create your very own user story.",
     buttonText: "Find Out More!",
-    buttonRoute: "#",
-    imgSrc: "https://placehold.it/300x200",
-    alt: "Epics",
+    route: "#",
+    imgSrc: "/assets/story.jfif",
+    alt: "User Stories",
   },
   {
-    title: "Integration with Github",
-    body: "Learn more about how to integrate your project with Github.",
+    title: "Teams",
+    body:
+      "Find out more about how you can add team members to your own custom nests!",
     buttonText: "Find Out More!",
-    buttonRoute: "#",
-    imgSrc: "https://placehold.it/300x200",
-    alt: "Integration with Github",
+    route: "#",
+    imgSrc: "/assets/team.jpg",
+    alt: "Teams",
   },
 ];
 
