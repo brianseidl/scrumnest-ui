@@ -14,7 +14,6 @@ const MemberCardItem = ({ memberItem, onClicked }) => {
           class="close float-right"
           aria-label="Close"
           display="inline-block"
-          // onClick={() => onClicked(memberItem)}
           onClick={() => onClicked(memberItem)}
         >
           <span aria-hidden="true">&times;</span>
