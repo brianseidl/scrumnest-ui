@@ -146,35 +146,6 @@ class Team extends Component {
     if (deleteMember) {
       this.deleteNestUser(this.state.selectedMember);
     }
-    // if (this.state.selectedMember.pending === true)
-    //   this.handleYesNoDialogPendingMember();
-    // else if (deleteMember) this.handleYesNoDialogTeamMember();
-    // else
-    //   this.setState({
-    //     show: false,
-    //   });
-  };
-
-  handleYesNoDialogPendingMember = () => {
-    const tempPendingList = this.state.pending.slice();
-    const deletedIndex = tempPendingList.indexOf(this.state.selectedMember);
-    tempPendingList.splice(deletedIndex, 1);
-    this.setState({
-      show: false,
-      selectedMember: null,
-      pending: tempPendingList,
-    });
-  };
-
-  handleYesNoDialogTeamMember = () => {
-    const tempMemberList = this.state.members.slice();
-    const deletedIndex = tempMemberList.indexOf(this.state.selectedMember);
-    tempMemberList.splice(deletedIndex, 1);
-    this.setState({
-      show: false,
-      selectedMember: null,
-      members: tempMemberList,
-    });
   };
 
   componentDidMount() {
@@ -295,16 +266,13 @@ class Team extends Component {
         })
       ).then((value) => {
         const nests = _.cloneDeep(this.state.nests);
-        const updatedNest = {
-          selectedNest: value.data.removeNestUser,
-          // users: value.data.deleteNestUser.users,
-        };
+        const updatedNest = value.data.removeNestUser;
 
         const index = this.state.nests.indexOf(this.state.selectedNest);
-        nests[index] = updatedNest.selectedNest;
+        nests[index] = updatedNest;
 
         this.setState({
-          selectedNest: updatedNest.selectedNest,
+          selectedNest: updatedNest,
           nests: nests,
         });
       });
