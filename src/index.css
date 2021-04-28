@@ -217,7 +217,6 @@ li a.dropdown-toggle::after {
   display: inline-block;
   width: 15% !important;
   margin-left: 10px;
-  /* margin-bottom: 40px; */
 }
 
 .card-pending {
@@ -330,7 +329,6 @@ li a.dropdown-toggle::after {
   --amplify-primary-tint: gray;
   --amplify-primary-shade: gray;
   --amplify-primary-contrast: black;
-  /* --amplify-font-family: "DM Sans", sans-serif; */
 }
 
 /* End Amplify Classes */

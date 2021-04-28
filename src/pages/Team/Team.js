@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PendingCards from "../../components/Cards/PendingCards";
 import MemberCards from "../../components/Cards/MemberCards";
 import { showYesNoDialog } from "../../components/Dialogs/service/DialogService";
+import OwnerCards from "../../components/Cards/OwnerCards";
 import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 import * as mutations from "../../graphql/mutations";
@@ -13,6 +14,7 @@ class Team extends Component {
     loggedUser: "",
     show: false,
     selectedMember: null,
+    owner: "",
     members: [],
     pending: [],
     nests: [],
@@ -104,6 +106,16 @@ class Team extends Component {
             </div>
 
             <div className="col">
+              <h3>Nest Leader</h3>
+
+              <hr class="team-line" />
+
+              <OwnerCards
+                cards={this.state.owner}
+                handleDialogEvent={this.handleShowDialog}
+                disabled={this.state.disableFields}
+              />
+
               <h3>Members</h3>
               <hr class="team-line" />
               <MemberCards
@@ -131,35 +143,9 @@ class Team extends Component {
   };
 
   handleCloseYesNoDialog = (deleteMember) => {
-    if (this.state.selectedMember.pending === true)
-      this.handleYesNoDialogPendingMember();
-    else if (deleteMember) this.handleYesNoDialogTeamMember();
-    else
-      this.setState({
-        show: false,
-      });
-  };
-
-  handleYesNoDialogPendingMember = () => {
-    const tempPendingList = this.state.pending.slice();
-    const deletedIndex = tempPendingList.indexOf(this.state.selectedMember);
-    tempPendingList.splice(deletedIndex, 1);
-    this.setState({
-      show: false,
-      selectedMember: null,
-      pending: tempPendingList,
-    });
-  };
-
-  handleYesNoDialogTeamMember = () => {
-    const tempMemberList = this.state.members.slice();
-    const deletedIndex = tempMemberList.indexOf(this.state.selectedMember);
-    tempMemberList.splice(deletedIndex, 1);
-    this.setState({
-      show: false,
-      selectedMember: null,
-      members: tempMemberList,
-    });
+    if (deleteMember) {
+      this.deleteNestUser(this.state.selectedMember);
+    }
   };
 
   componentDidMount() {
@@ -184,12 +170,15 @@ class Team extends Component {
       // Get the index of the selected nest
       let index = this.state.nests.indexOf(this.state.selectedNest);
 
-      // Hold the members and pending
+      // Hold the owner, members and pending
+      let tempOwner = "";
       let tempMembers = [];
       let tempPending = [];
 
       // index is -1 is Choose...
       if (index > -1) {
+        tempOwner = this.state.nests[index].owner;
+
         // set members to users with usernames & pending to emails of users without usernames
         for (let i = 0; i < this.state.nests[index].users.length; i++) {
           if (this.state.nests[index].users[i].username !== "")
@@ -198,8 +187,9 @@ class Team extends Component {
         }
       }
 
-      // Set members and pending
+      // Set owner, members and pending
       this.setState({
+        owner: tempOwner,
         members: tempMembers,
         pending: tempPending,
       });
@@ -227,6 +217,10 @@ class Team extends Component {
 
   setNewUserEmail = (data) => {
     this.setState({ newUserEmail: data.target.value });
+  };
+
+  setDeleteUserEmail = (data) => {
+    this.setState({ deleteUserEmail: data.target.value });
   };
 
   addNewUser = () => {
@@ -259,6 +253,32 @@ class Team extends Component {
       alert("Select a Nest");
     }
   };
-}
 
+  deleteNestUser = (member) => {
+    if (this.state.selectedNest) {
+      const nestID = this.state.selectedNest.nestId;
+      const email = member.email;
+
+      API.graphql(
+        graphqlOperation(mutations.removeNestUser, {
+          nestId: nestID,
+          email: email,
+        })
+      ).then((value) => {
+        const nests = _.cloneDeep(this.state.nests);
+        const updatedNest = value.data.removeNestUser;
+
+        const index = this.state.nests.indexOf(this.state.selectedNest);
+        nests[index] = updatedNest;
+
+        this.setState({
+          selectedNest: updatedNest,
+          nests: nests,
+        });
+      });
+    } else {
+      alert("Select a Nest");
+    }
+  };
+}
 export default Team;
