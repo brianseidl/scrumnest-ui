@@ -28,7 +28,7 @@
         }
       },
       "storage": {
-        "scrumnestui865c2c10": {
+        "scrumnestuid7d70395": {
           "bucketName": "337451035854-scrumnest-files-dev",
           "region": "us-east-1"
         }
@@ -64,7 +64,7 @@
         }
       },
       "storage": {
-        "scrumnestui865c2c10": {
+        "scrumnestuid7d70395": {
           "bucketName": "337451035854-scrumnest-files-prod",
           "region": "us-east-1"
         }
@@ -100,7 +100,7 @@
         }
       },
       "storage": {
-        "scrumnestui8372664f": {
+        "scrumnestuid7d70395": {
           "bucketName": "144290940122-scrumnest-files-dev",
           "region": "us-east-1"
         }
