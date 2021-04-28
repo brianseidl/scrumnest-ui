@@ -24,10 +24,10 @@ AWSCLOUDFORMATIONCONFIG="{\
 }"
 
 AUTHCONFIG="{\
-\"identityPoolName\":\"ScrumNestAppSync-prod-user-pool\",\
 \"userPoolId\":\"us-east-1_7g7GJb6Za\",\
 \"webClientId\":\"35i0e4s09qakerb4m52km5v86e\",\
 \"nativeClientId\":\"802uni8f75rcptjtg2va7ljh9\"\
+\"identityPoolId\":\"us-east-1:9389378c-dfc1-4fde-9438-fa5af8732a17\",\
 }"
 
 STORAGE="{\
@@ -67,4 +67,3 @@ amplify pull \
 yes "" | amplify add codegen --apiId $API_ID
 
 amplify status
-
