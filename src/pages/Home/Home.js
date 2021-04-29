@@ -14,8 +14,7 @@ class Home extends Component {
                   Welcome to Scrum Nest!
                 </h1>
                 <p className="lead mb-5 text-white-50">
-                  A scrum board application catered towards smaller agile teams
-                  to get you up and moving.
+                  A scrum board service built for students by students.
                 </p>
               </div>
             </div>
