@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
+import { trimTextFieldValue } from "../../Utilities/CommonUtils";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 class Attachment extends Component {
-  state = {};
+  ATTACHMENT_NAME_LENGTH = 15;
+
   render() {
     return (
       <div className="py-1">
@@ -11,7 +15,24 @@ class Attachment extends Component {
           aria-hidden="true"
           onClick={() => this.props.getFile(this.props.attachment)}
         ></i>
-        <Form.Label className="row">{this.props.attachment.name}</Form.Label>
+        <div>
+          <OverlayTrigger
+            placement="bottom"
+            overlay={<Tooltip>{this.props.attachment.name}</Tooltip>}
+          >
+            <Form.Label className="pr-2">
+              {trimTextFieldValue(
+                this.props.attachment.name,
+                this.ATTACHMENT_NAME_LENGTH
+              )}
+            </Form.Label>
+          </OverlayTrigger>
+          <i
+            className="fa fa-trash-o selectable-item"
+            aria-hidden="true"
+            onClick={() => this.props.deleteAttachment(this.props.attachment)}
+          ></i>
+        </div>
       </div>
     );
   }

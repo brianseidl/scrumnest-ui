@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import { Draggable } from "react-beautiful-dnd";
 import Button from "react-bootstrap/Button";
+import { trimTextFieldValue } from "../../Utilities/CommonUtils";
 
 import { showYesNoDialog } from "../../components/Dialogs/service/DialogService";
 
@@ -35,7 +36,10 @@ class UserStoryCard extends Component {
                   Assigned: {this.props.userStory.owner}
                 </Card.Subtitle>
                 <Card.Text className="user-story-desc-text">
-                  {this.displayDescription(this.props.userStory.description)}
+                  {trimTextFieldValue(
+                    this.props.userStory.description,
+                    this.DESCRIPTION_LENGTH
+                  )}
                 </Card.Text>
                 <a
                   className="btn btn-primary user-story-desc-text"
@@ -57,18 +61,6 @@ class UserStoryCard extends Component {
         )}
       </Draggable>
     );
-  }
-
-  /**
-   * Trims the description if we are over the allotted 150 characters, otherwise just returns the description
-   * as presently set.
-   * @param {string} description
-   * @returns
-   */
-  displayDescription(description) {
-    return description.length > 150
-      ? `${description.substr(0, this.DESCRIPTION_LENGTH).trim()}...`
-      : description;
   }
 
   deleteStory = (event) => {

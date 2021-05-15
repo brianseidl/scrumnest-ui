@@ -3,6 +3,7 @@ import Attachment from "./Attachment";
 import { Form } from "react-bootstrap";
 import { ulid } from "ulid";
 import { Storage } from "aws-amplify";
+import { showYesNoDialog } from "../../components/Dialogs/service/DialogService";
 
 class Attachments extends Component {
   FILE_SIZE_LIMIT_MB = 5;
@@ -18,6 +19,7 @@ class Attachments extends Component {
               key={attachment.name}
               attachment={attachment}
               getFile={this.getFileFromS3Bucket}
+              deleteAttachment={this.deleteFileFromS3Bucket}
             ></Attachment>
           ))}
         </div>
@@ -71,6 +73,27 @@ class Attachments extends Component {
       level: "protected",
       download: true,
     }).then((file) => this.downloadBlob(file.Body, attachment.name));
+  };
+
+  deleteFileFromS3Bucket = (attachment) => {
+    showYesNoDialog(`Are you sure you want to delete ${attachment.name}?`).then(
+      (response) => {
+        if (response) {
+          Storage.remove(attachment.key, {
+            level: "protected",
+          }).then(
+            (successful) => {
+              this.props.deleteFile(attachment.key);
+            },
+            (rejected) => {
+              alert(
+                "An error occurred while attempting to delete the attachment. Please try again."
+              );
+            }
+          );
+        }
+      }
+    );
   };
 
   /**
