@@ -6,7 +6,5 @@
  * @returns
  */
 export function trimTextFieldValue(value, length) {
-  return value.length > length
-    ? `${value.substr(0, length).trim()}...`
-    : value;
+  return value.length > length ? `${value.substr(0, length).trim()}...` : value;
 }
