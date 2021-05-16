@@ -272,7 +272,7 @@ class Story extends Component {
   handleAddComment = (data) => {
     if (!this.state.enableAddComment) {
       alert(
-        "You cannot add multiple comments at a time. Please finish drafting the current one."
+        "You cannot add multiple comments at a time. Please either save or discard the current one."
       );
       return;
     }
