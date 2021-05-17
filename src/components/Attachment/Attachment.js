@@ -13,10 +13,12 @@ class Attachment extends Component {
         <i
           className="fa fa-file fa-2x attachment-icon"
           aria-hidden="true"
+          title="Download attachment"
           onClick={() => this.props.getFile(this.props.attachment)}
         ></i>
         <div>
           <OverlayTrigger
+            id="attachment-overlay"
             placement="bottom"
             overlay={<Tooltip>{this.props.attachment.name}</Tooltip>}
           >
@@ -30,6 +32,7 @@ class Attachment extends Component {
           <i
             className="fa fa-trash-o selectable-item"
             aria-hidden="true"
+            title="Delete attachment"
             onClick={() => this.props.deleteAttachment(this.props.attachment)}
           ></i>
         </div>

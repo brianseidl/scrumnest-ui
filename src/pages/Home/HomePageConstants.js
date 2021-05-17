@@ -1,7 +1,8 @@
 const cardItems = [
   {
     title: "Nests",
-    body: "Learn more about what nests are and how to get started creating a nest.",
+    body:
+      "Learn more about what nests are and how to get started creating a nest.",
     buttonText: "Find Out More!",
     route: "/learnMore/learnNests",
     imgSrc: "/assets/scrum-board-example.png",
@@ -17,7 +18,8 @@ const cardItems = [
   },
   {
     title: "Teams",
-    body: "Find out more about how you can add team members to your own custom nests!",
+    body:
+      "Find out more about how you can add team members to your own custom nests!",
     buttonText: "Find Out More!",
     route: "#",
     imgSrc: "/assets/team.jpg",

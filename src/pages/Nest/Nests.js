@@ -17,7 +17,6 @@ class Nests extends Component {
     // get nest info on page load
     API.graphql(graphqlOperation(queries.nests)).then((value) => {
       this.setState({ nests: value.data.nests });
-      console.log(this.state.nests);
     });
   }
 
@@ -39,7 +38,7 @@ class Nests extends Component {
             <tbody>
               {this.state.nests.map((nest) => {
                 return (
-                  <tr key={`${nest.nestId}`}>
+                  <tr id={nest.nestId} key={`${nest.nestId}`}>
                     <td>
                       <a href={`/nests/${nest.nestId}`}>{nest.nestId}</a>
                     </td>

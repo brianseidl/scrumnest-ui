@@ -25,11 +25,13 @@ class Comment extends Component {
                 <i
                   className="fa fa-floppy-o px-2 selectable-item"
                   aria-hidden="true"
+                  title="Save"
                   onClick={() => this.props.saveComment(this.state.comment)}
                 ></i>
                 <i
                   className="fa fa-trash-o selectable-item"
                   aria-hidden="true"
+                  title="Discard"
                   onClick={() => this.onDeleteComment(this.state.comment)}
                 ></i>
               </div>

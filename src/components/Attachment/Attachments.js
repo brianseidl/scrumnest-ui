@@ -13,7 +13,7 @@ class Attachments extends Component {
     return (
       <React.Fragment>
         <Form.Label className="form-control-label row">Attachments:</Form.Label>
-        <div className="attachments-container">
+        <div id="attachments-container" className="attachments-container">
           {this.props.attachments.map((attachment) => (
             <Attachment
               key={attachment.name}
@@ -42,9 +42,7 @@ class Attachments extends Component {
       return;
     }
 
-    const fileSizeInMB = file.size / this.MB_TO_BYTE_CONVERSION;
-
-    if (fileSizeInMB >= this.FILE_SIZE_LIMIT_MB) {
+    if (!this.acceptableFileSize(file)) {
       alert(
         "The file attempting to be uploaded is larger than 5MB. Please choose a smaller file."
       );
@@ -56,7 +54,6 @@ class Attachments extends Component {
 
     const id = `${ulid()}${extensionType}`;
     Storage.put(id, file, {
-      level: "protected",
       contentType: fileType,
     })
       .then((value) => {
@@ -70,7 +67,6 @@ class Attachments extends Component {
 
   getFileFromS3Bucket = (attachment) => {
     Storage.get(attachment.key, {
-      level: "protected",
       download: true,
     }).then((file) => this.downloadBlob(file.Body, attachment.name));
   };
@@ -79,9 +75,7 @@ class Attachments extends Component {
     showYesNoDialog(`Are you sure you want to delete ${attachment.name}?`).then(
       (response) => {
         if (response) {
-          Storage.remove(attachment.key, {
-            level: "protected",
-          }).then(
+          Storage.remove(attachment.key, {}).then(
             (successful) => {
               this.props.deleteFile(attachment.key);
             },
@@ -125,6 +119,16 @@ class Attachments extends Component {
   getFileExtension(fileName) {
     const beginningIndex = fileName.lastIndexOf(".");
     return fileName.substr(beginningIndex);
+  }
+
+  acceptableFileSize(file) {
+    const fileSizeInMB = file.size / this.MB_TO_BYTE_CONVERSION;
+
+    if (fileSizeInMB >= this.FILE_SIZE_LIMIT_MB) {
+      return false;
+    }
+
+    return true;
   }
 }
 

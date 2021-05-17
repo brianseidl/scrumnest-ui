@@ -13,12 +13,13 @@ class Comments extends Component {
             <i
               className="fa fa-plus-square-o selectable-item"
               aria-hidden="true"
+              title="Add Comment"
               onClick={() => this.props.onAddComment()}
             ></i>
           </div>
         </Form.Label>
 
-        <div className="comments-field row">
+        <div id="comment-container" className="comments-field row">
           {this.props.comments.map((comment) => (
             <Comment
               key={ulid()}
