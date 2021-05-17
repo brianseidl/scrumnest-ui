@@ -1,8 +1,8 @@
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 
-import { shallow } from 'enzyme';
+import { shallow } from "enzyme";
 
-import UserStoryCard from './UserStoryCard';
+import UserStoryCard from "./UserStoryCard";
 
 const data = {
   description: "Testing testing read all about it",
@@ -18,8 +18,7 @@ const data = {
 //   description: story.description || "",
 // };
 
-it('should render the correct HTML elements', () => {
-
+it("should render the correct HTML elements", () => {
   expect(true).toBeTruthy();
 
   // TO-DO: Fix tests
