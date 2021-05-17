@@ -26,9 +26,10 @@ it("should render comments with the appropriate elements with a list of comments
   expect(addCommentBtn).toBeTruthy();
 
   // Check if the comment container list appropriately shows 2 comments
-  const commentListLength = commentsComp.container.querySelector(
-    "#comment-container"
-  ).childElementCount;
+  const commentListLength =
+    commentsComp.container.querySelector(
+      "#comment-container"
+    ).childElementCount;
   expect(commentListLength).toBe(2);
 
   // Check if the div does not appear showing 'No comments'
@@ -46,8 +47,9 @@ it("should render no comments and a div containing no comments with a list of co
   expect(noCommentDiv).toBeTruthy();
 
   // Check if the comment container list appropriately shows 1 child element due to the 'No comment' div rendering
-  const commentListLength = commentsComp.container.querySelector(
-    "#comment-container"
-  ).childElementCount;
+  const commentListLength =
+    commentsComp.container.querySelector(
+      "#comment-container"
+    ).childElementCount;
   expect(commentListLength).toBe(1);
 });

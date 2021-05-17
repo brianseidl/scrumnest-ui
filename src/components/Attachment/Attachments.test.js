@@ -25,9 +25,8 @@ it("should render a list of 2 attachments and contain a file upload field", () =
   ).childElementCount;
   expect(numOfAttachments).toBe(2);
 
-  const fileUploadField = attachmentsComp.container.querySelector(
-    "#file-input"
-  );
+  const fileUploadField =
+    attachmentsComp.container.querySelector("#file-input");
   expect(fileUploadField).toBeTruthy();
 });
 
@@ -70,11 +69,9 @@ it("should return the correct file extension", () => {
   );
 
   const mockFileObj2 = {
-    name:
-      "Detecting SQL Injection Attacks using Advanced Automated Techniques.docx",
+    name: "Detecting SQL Injection Attacks using Advanced Automated Techniques.docx",
     size: 28316,
-    type:
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   };
 
   expect(attachmentsComp.instance().getFileExtension(mockFileObj2.name)).toBe(
