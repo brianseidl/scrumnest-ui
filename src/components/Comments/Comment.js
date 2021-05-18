@@ -60,7 +60,6 @@ class Comment extends Component {
     );
   };
 
-
   textValueChange = (event) => {
     this.setState({
       comment: { ...this.state.comment, content: event.target.value },
