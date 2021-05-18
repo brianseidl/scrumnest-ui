@@ -199,7 +199,6 @@ class Story extends Component {
             </Form.Group>
 
             <Form.Group
-              validationState={this.validateEffortField}
               controlId="effort"
             >
               <Form.Label className="form-control-label row">
