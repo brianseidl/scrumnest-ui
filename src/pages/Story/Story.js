@@ -198,9 +198,7 @@ class Story extends Component {
               </Form.Control>
             </Form.Group>
 
-            <Form.Group
-              controlId="effort"
-            >
+            <Form.Group controlId="effort">
               <Form.Label className="form-control-label row">
                 Effort:
               </Form.Label>
