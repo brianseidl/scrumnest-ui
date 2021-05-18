@@ -44,10 +44,11 @@ class Story extends Component {
         storyId: this.state.storyId,
       })
     ).then((value) => {
-      let dateToBeCompleted = "";
       let story = value.data.story;
 
       if (value.data.story) {
+        let dateToBeCompleted = "";
+
         dateToBeCompleted = this.parseDateToBeCompleted(
           value.data.story.dateToBeCompleted
         );
@@ -142,6 +143,7 @@ class Story extends Component {
             <Form.Group controlId="attachments">
               <Attachments
                 saveFile={this.saveFile.bind(this)}
+                deleteFile={this.deleteFile.bind(this)}
                 attachments={this.state.story.attachments}
               ></Attachments>
             </Form.Group>
@@ -151,6 +153,7 @@ class Story extends Component {
                 onAddComment={this.handleAddComment}
                 saveComment={this.saveComment}
                 deleteComment={this.deleteComment}
+                updateComment={this.updateComment}
                 comments={this.state.story.comments}
               ></Comments>
             </Form.Group>
@@ -167,7 +170,7 @@ class Story extends Component {
                 value={this.state.story.priority}
               >
                 {PRIORITY.values.map((value) => (
-                  <option>{value}</option>
+                  <option key={value}>{value}</option>
                 ))}
               </Form.Control>
             </Form.Group>
@@ -195,7 +198,10 @@ class Story extends Component {
               </Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="effort">
+            <Form.Group
+              validationState={this.validateEffortField}
+              controlId="effort"
+            >
               <Form.Label className="form-control-label row">
                 Effort:
               </Form.Label>
@@ -266,7 +272,7 @@ class Story extends Component {
   handleAddComment = (data) => {
     if (!this.state.enableAddComment) {
       alert(
-        "You cannot add multiple comments at a time. Please finish drafting the current one."
+        "You cannot add multiple comments at a time. Please either save or discard the current one."
       );
       return;
     }
@@ -298,9 +304,29 @@ class Story extends Component {
       })
     ).then((value) => {
       this.setState({ story: value.data.addStoryAttachment });
-      alert("File uploaded successfully!");
+      alert("File uploaded successfully.");
     });
   }
+
+  deleteFile(fileID) {
+    API.graphql(
+      graphqlOperation(mutations.deleteStoryAttachment, {
+        nestId: this.state.nestId,
+        storyId: this.state.storyId,
+        key: fileID,
+      })
+    ).then((value) => {
+      this.setState({ story: value.data.deleteStoryAttachment });
+      alert("File deleted successfully.");
+    });
+  }
+
+  updateComment = (comment) => {
+    const comments = _.cloneDeep(this.state.story.comments);
+    comments[0] = comment;
+
+    this.setState({ story: { ...this.state.story, comments: comments } });
+  };
 
   saveComment = (comment) => {
     API.graphql(
@@ -324,31 +350,42 @@ class Story extends Component {
   };
 
   saveUserStory = () => {
+    let updateStoryData = this.getUpdateStoryData();
+
     if (!this.state.enableAddComment) {
-      alert(
-        "You have an open comment right now. Discard or save prior to proceeding."
-      );
-      return;
+      updateStoryData["comment"] = this.state.story.comments[0].content;
     }
 
-    API.graphql(
-      graphqlOperation(mutations.updateStory, {
-        nestId: this.state.nestId,
-        storyId: this.state.storyId,
-        status: this.state.story.status,
-        description: this.state.story.description,
-        priority: this.state.story.priority,
-        effort: this.state.story.effort,
-        owner: this.state.story.owner,
-        dateToBeCompleted: this.state.story.dateToBeCompleted,
-      })
-    ).then((value) => {
-      alert("User story was saved.");
-      this.props.history.goBack();
-    });
+    API.graphql(graphqlOperation(mutations.updateStory, updateStoryData)).then(
+      (value) => {
+        alert("User story was saved.");
+        this.props.history.goBack();
+      },
+      (onrejected) => {
+        console.error("Error occurred while saving story: ", onrejected);
+        alert(
+          "An error has occurred while attempting to save a user story. Please try again."
+        );
+      }
+    );
 
     // TO-DO add a nicer dialog to say form was submitted.
   };
+
+  getUpdateStoryData() {
+    const json = {
+      nestId: this.state.nestId,
+      storyId: this.state.storyId,
+      status: this.state.story.status,
+      description: this.state.story.description,
+      priority: this.state.story.priority,
+      effort: this.state.story.effort,
+      owner: this.state.story.owner,
+      dateToBeCompleted: this.state.story.dateToBeCompleted,
+    };
+
+    return json;
+  }
 
   discardUserStory = () => {
     const message = "Are you sure you want to discard and lose any changes?";

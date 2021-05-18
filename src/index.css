@@ -429,6 +429,7 @@ li a.dropdown-toggle::after {
 
 .attachment-icon {
   cursor: pointer;
+  color: #007bff;
 }
 
 .attachment-icon:hover {

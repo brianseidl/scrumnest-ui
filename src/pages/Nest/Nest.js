@@ -31,7 +31,7 @@ class Nest extends Component {
         </h1>
 
         {/* TODO: Move this link to somewhere nicer */}
-        <a href={`/nests/${this.state.nestId}/stories`}>View all stories</a>
+        {/* <a href={`/nests/${this.state.nestId}/stories`}>View all stories</a> */}
 
         <Container id="board-container" className="container-height">
           <Row>
@@ -234,9 +234,10 @@ class Nest extends Component {
     API.graphql(
       graphqlOperation(mutations.updateStory, {
         nestId: this.state.nestId,
-        storyId: this.state.nestData[destinationColumnIndex].userStories[
-          destination.index
-        ].id,
+        storyId:
+          this.state.nestData[destinationColumnIndex].userStories[
+            destination.index
+          ].id,
         status: this.state.nestData[destinationColumnIndex].id,
       })
     ).then((value) => {
