@@ -277,9 +277,10 @@ class Nest extends Component {
     API.graphql(
       graphqlOperation(mutations.updateStory, {
         nestId: this.state.nestId,
-        storyId: this.state.nestData[destinationColumnIndex].userStories[
-          destination.index
-        ].id,
+        storyId:
+          this.state.nestData[destinationColumnIndex].userStories[
+            destination.index
+          ].id,
         status: this.state.nestData[destinationColumnIndex].id,
       })
     ).then((value) => {
