@@ -12,7 +12,7 @@ class Comment extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="container">
+        <div className="container-fluid">
           <Form.Label className="form-control-label row comment-label">
             by {this.state.comment.username}
             {!this.state.comment.enabled && (
@@ -59,12 +59,6 @@ class Comment extends Component {
       }
     );
   };
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.comment !== this.props.comment) {
-      this.setState({ comment: this.props.comment });
-    }
-  }
 
   textValueChange = (event) => {
     this.setState({

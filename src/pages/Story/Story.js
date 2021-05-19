@@ -196,10 +196,7 @@ class Story extends Component {
               </Form.Control>
             </Form.Group>
 
-            <Form.Group
-              validationState={this.validateEffortField}
-              controlId="effort"
-            >
+            <Form.Group controlId="effort">
               <Form.Label className="form-control-label row">
                 Effort:
               </Form.Label>
@@ -306,9 +303,8 @@ class Story extends Component {
     });
   }
 
-  /* TODO: Uncomment when this functionality is added in API */
   deleteFile(fileID) {
-    /*API.graphql(
+    API.graphql(
       graphqlOperation(mutations.deleteStoryAttachment, {
         nestId: this.state.nestId,
         storyId: this.state.storyId,
@@ -317,7 +313,7 @@ class Story extends Component {
     ).then((value) => {
       this.setState({ story: value.data.deleteStoryAttachment });
       alert("File deleted successfully.");
-    });*/
+    });
   }
 
   updateComment = (comment) => {
