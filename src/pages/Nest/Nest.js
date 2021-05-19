@@ -8,7 +8,6 @@ import UserStoryContainer from "../../components/UserStory/UserStoryContainer";
 import { NEST_MODEL } from "./NestConstants";
 import { showCreateStoryDialog } from "../../components/Dialogs/service/DialogService";
 
-import ReactPaginate from "react-paginate";
 import * as qs from "query-string";
 
 import { DragDropContext } from "react-beautiful-dnd";
