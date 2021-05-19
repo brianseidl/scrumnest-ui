@@ -2,10 +2,14 @@ import React, { Component } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Pagination from "react-bootstrap/Pagination";
 
 import UserStoryContainer from "../../components/UserStory/UserStoryContainer";
 import { NEST_MODEL } from "./NestConstants";
 import { showCreateStoryDialog } from "../../components/Dialogs/service/DialogService";
+
+import ReactPaginate from "react-paginate";
+import * as qs from "query-string";
 
 import { DragDropContext } from "react-beautiful-dnd";
 import { API, graphqlOperation } from "aws-amplify";
@@ -19,11 +23,42 @@ class Nest extends Component {
   state = {
     nestName: "",
     nestId: "",
+    nest: null,
+    sprint: null,
     nestData: NEST_MODEL,
     isModalOpen: false,
   };
 
   render() {
+    let pagItems = [];
+    let pag = (
+      <Pagination>
+        <Pagination.Item
+          key="all"
+          href={`/nests/${this.state.nestId}`}
+          active={this.state.sprint === null}
+        >
+          All
+        </Pagination.Item>
+        <Pagination.Prev />
+        {pagItems}
+        <Pagination.Next />
+      </Pagination>
+    );
+    if (this.state.nest) {
+      for (let i = 1; i <= this.state.nest.sprints; i++) {
+        pagItems.push(
+          <Pagination.Item
+            key={i}
+            href={`?sprint=${i}`}
+            active={i === this.state.sprint}
+          >
+            {i}
+          </Pagination.Item>
+        );
+      }
+    }
+
     return (
       <React.Fragment>
         <h1 className="display-6 text-black text-center nest-title">
@@ -31,7 +66,9 @@ class Nest extends Component {
         </h1>
 
         {/* TODO: Move this link to somewhere nicer */}
-        {/* <a href={`/nests/${this.state.nestId}/stories`}>View all stories</a> */}
+        <a href={`/nests/${this.state.nestId}/stories`}>View all stories</a>
+
+        <Container>Filter by Sprint:{pag}</Container>
 
         <Container id="board-container" className="container-height">
           <Row>
@@ -71,20 +108,25 @@ class Nest extends Component {
     this.state = {
       ...this.state,
       nestId: this.props.match.params.nestId,
+      sprint: parseInt(qs.parse(window.location.search).sprint) || null,
     };
   }
 
   componentDidMount() {
+    let graphqlParams = {
+      nestId: this.state.nestId,
+    };
+    if (this.state.sprint) {
+      graphqlParams.sprint = this.state.sprint;
+    }
     // get nest info on page load
-    API.graphql(
-      graphqlOperation(queries.nest, { nestId: this.state.nestId })
-    ).then((value) => {
+    API.graphql(graphqlOperation(queries.nest, graphqlParams)).then((value) => {
       this.setNestState(value.data.nest);
     });
 
     // add subscription here
     this.subscription = API.graphql(
-      graphqlOperation(subscriptions.nestStories, { nestId: this.state.nestId })
+      graphqlOperation(subscriptions.nestStories, graphqlParams)
     ).subscribe((value) => {
       if (value.value.data.nestStories)
         this.setNestState(value.value.data.nestStories);
@@ -160,6 +202,7 @@ class Nest extends Component {
     });
 
     this.setState({
+      nest: nest,
       nestData: nestData,
       nestName: nest.name,
     });
@@ -234,10 +277,9 @@ class Nest extends Component {
     API.graphql(
       graphqlOperation(mutations.updateStory, {
         nestId: this.state.nestId,
-        storyId:
-          this.state.nestData[destinationColumnIndex].userStories[
-            destination.index
-          ].id,
+        storyId: this.state.nestData[destinationColumnIndex].userStories[
+          destination.index
+        ].id,
         status: this.state.nestData[destinationColumnIndex].id,
       })
     ).then((value) => {

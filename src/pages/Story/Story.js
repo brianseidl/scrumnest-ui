@@ -5,12 +5,12 @@ import Comments from "../../components/Comments/Comments";
 import Attachments from "../../components/Attachment/Attachments";
 import _ from "lodash";
 import Button from "react-bootstrap/Button";
-import * as mutations from "../../graphql/mutations";
 import { showYesNoDialog } from "../../components/Dialogs/service/DialogService";
 
 import { API, graphqlOperation } from "aws-amplify";
 
 import * as queries from "../../graphql/queries";
+import * as mutations from "../../graphql/mutations";
 
 class Story extends Component {
   constructor(props) {
@@ -117,13 +117,11 @@ class Story extends Component {
               className="row align-items-center"
               controlId="sprint-linked"
             >
-              <Form.Label className="form-control-label">
-                Sprint Linked With:
-              </Form.Label>
+              <Form.Label className="form-control-label">Sprint:</Form.Label>
               <Form.Control
                 className="m-2"
                 type="input"
-                value={""}
+                value={this.state.story.sprint}
                 readOnly
               ></Form.Control>
             </Form.Group>
@@ -308,8 +306,9 @@ class Story extends Component {
     });
   }
 
+  /* TODO: Uncomment when this functionality is added in API */
   deleteFile(fileID) {
-    API.graphql(
+    /*API.graphql(
       graphqlOperation(mutations.deleteStoryAttachment, {
         nestId: this.state.nestId,
         storyId: this.state.storyId,
@@ -318,7 +317,7 @@ class Story extends Component {
     ).then((value) => {
       this.setState({ story: value.data.deleteStoryAttachment });
       alert("File deleted successfully.");
-    });
+    });*/
   }
 
   updateComment = (comment) => {
