@@ -21,7 +21,7 @@ class LearnNests extends Component {
               {/* <!-- Preview Image --> */}
               <img
                 className="img-fluid rounded"
-                src="/assets/scrum-board-example.png"
+                src="https://www.iln.cloud/file/31651/OriginalLarge"
                 height="300"
                 width="500"
                 alt="A sample scrum board."
@@ -63,7 +63,7 @@ class LearnNests extends Component {
               </p>
               <img
                 className="img-fluid rounded"
-                src="/assets/new-nest-page.png"
+                src="https://www.iln.cloud/file/31648/OriginalLarge"
                 height="300"
                 width="800"
                 alt="A new Nest."

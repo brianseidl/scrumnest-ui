@@ -20,7 +20,7 @@ class LearnTeams extends Component {
               <hr />
               {/* <!-- Preview Image --> */}
               <img
-                src="/assets/owner-view-team.PNG"
+                src="https://www.iln.cloud/file/31649/OriginalLarge"
                 height="400"
                 width="900"
                 alt="Team page view from nest owner perspective."
@@ -55,7 +55,7 @@ class LearnTeams extends Component {
               <hr />
               {/* <!-- Preview Image --> */}
               <img
-                src="/assets/member-view-team.PNG"
+                src="https://www.iln.cloud/file/31647/OriginalLarge"
                 height="400"
                 width="900"
                 alt="Team page view from nest member perspective."

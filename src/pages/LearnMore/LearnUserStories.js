@@ -21,7 +21,7 @@ class LearnUserStories extends Component {
               {/* <!-- Preview Image --> */}
               <img
                 className="img-fluid rounded"
-                src="/assets/user-stories.png"
+                src="https://www.iln.cloud/file/31655/OriginalLarge"
                 height="300"
                 width="1000"
                 alt="Nest page with user stories."
@@ -133,7 +133,7 @@ class LearnUserStories extends Component {
                 to the user story.
               </p>
               <img
-                src="/assets/view-user-story.PNG"
+                src="https://www.iln.cloud/file/31657/OriginalLarge"
                 height="550"
                 width="900"
                 alt="Edit user story view."
@@ -164,7 +164,7 @@ class LearnUserStories extends Component {
               </p>
 
               <img
-                src="/assets/view-user-story-list.PNG"
+                src="https://www.iln.cloud/file/31656/OriginalLarge"
                 height="291"
                 width="900"
                 alt="User story list view."
