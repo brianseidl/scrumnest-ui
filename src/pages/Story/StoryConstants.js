@@ -1,5 +1,5 @@
 const STATUS = {
-  values: ["TODO", "DEV", "QA", "Completed"],
+  values: ["TODO", "DEV", "QA", "COMPLETED"],
 };
 
 const PRIORITY = {
