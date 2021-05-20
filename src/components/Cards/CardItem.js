@@ -19,7 +19,7 @@ const CardItem = ({ cardItem, onClicked }) => {
           <a
             href={cardItem.buttonRoute}
             onClick={() => onClicked(cardItem.route)}
-            className="btn btn-primary"
+            className="btn btn-primary stretched-link"
           >
             {cardItem.buttonText}
           </a>

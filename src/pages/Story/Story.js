@@ -176,9 +176,36 @@ class Story extends Component {
                 as="select"
                 onChange={this.onChangeFieldState}
                 value={this.state.story.priority}
+                className={`priority-field ${
+                  this.state.story.priority === "LOW"
+                    ? "priority-low"
+                    : this.state.story.priority === "MEDIUM"
+                    ? "priority-medium"
+                    : this.state.story.priority === "HIGH"
+                    ? "priority-high"
+                    : this.state.story.priority === "URGENT"
+                    ? "priority-urgent"
+                    : ""
+                }`}
               >
                 {PRIORITY.values.map((value) => (
-                  <option key={value}>{value}</option>
+                  <option
+                    className={`priority-field ${
+                      value === "LOW"
+                        ? "priority-low"
+                        : value === "MEDIUM"
+                        ? "priority-medium"
+                        : value === "HIGH"
+                        ? "priority-high"
+                        : value === "URGENT"
+                        ? "priority-urgent"
+                        : value === "NONE"
+                        ? "priority-none"
+                        : ""
+                    }`}
+                  >
+                    {value}
+                  </option>
                 ))}
               </Form.Control>
             </Form.Group>
@@ -205,7 +232,6 @@ class Story extends Component {
                 })}
               </Form.Control>
             </Form.Group>
-
             <Form.Group controlId="effort">
               <Form.Label className="form-control-label row">
                 Effort:
@@ -218,7 +244,6 @@ class Story extends Component {
               ></Form.Control>
               <Form.Label>Days</Form.Label>
             </Form.Group>
-
             <Form.Group controlId="dateToBeCompleted">
               <Form.Label className="form-control-label row">
                 To Be Completed By:
@@ -229,7 +254,6 @@ class Story extends Component {
                 value={this.state.story.dateToBeCompleted}
               ></Form.Control>
             </Form.Group>
-
             {/* This is just placeholder information until we get the gitHub hooks working... comment out for now. TO-DO */}
             {/* <Form.Group controlId="gitHub">
               <Form.Label className="form-control-label row">Code History:</Form.Label>

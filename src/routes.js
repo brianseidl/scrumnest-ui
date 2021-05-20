@@ -8,6 +8,8 @@ import Nests from "./pages/Nest/Nests";
 import Story from "./pages/Story/Story";
 import Stories from "./pages/Story/Stories";
 import LearnNests from "./pages/LearnMore/LearnNests";
+import LearnUserStories from "./pages/LearnMore/LearnUserStories";
+import LearnTeams from "./pages/LearnMore/LearnTeams";
 
 import { Switch } from "react-router-dom";
 
@@ -61,6 +63,18 @@ const ROUTES = [
     key: "LEARN-MORE-NESTS",
     exact: true,
     component: LearnNests,
+  },
+  {
+    path: "/learnMore/learnUserStories",
+    key: "LEARN-MORE-USER-STORIES",
+    exact: true,
+    component: LearnUserStories,
+  },
+  {
+    path: "/learnMore/learnTeams",
+    key: "LEARN-MORE-TEAMS",
+    exact: true,
+    component: LearnTeams,
   },
 ];
 
