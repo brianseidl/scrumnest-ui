@@ -31,6 +31,7 @@ class CreateStoryModal extends BaseDialogComponent {
       graphqlOperation(mutations.createStory, {
         nestId: this.props.dialog.nestId,
         title: this.state.title,
+        sprint: this.props.dialog.sprint,
       })
     ).then((value) => {
       this.handleClose(value);

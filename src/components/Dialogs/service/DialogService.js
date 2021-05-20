@@ -44,12 +44,13 @@ export function showConfirmButtonDialog() {
   // Not in use for now... showYesNoDialog is used in preference.
 }
 
-export function showCreateStoryDialog(nestId) {
+export function showCreateStoryDialog(nestId, sprint) {
   const data = {
     type: CreateStoryModal,
     closeButton: true,
     nestId: nestId,
     show: true,
+    sprint: sprint,
   };
 
   return CreateStoryModal.create(data).show();

@@ -20,27 +20,6 @@ class ConfirmButton extends Component {
   }
 
   render() {
-    /*return 
-      <React.Fragment>
-        <Button
-          className={this.state.className}
-          onClick={this.addListener}
-          hidden={this.state.confirmed === true}
-        >
-          {this.state.label}
-        </Button>
-        <span />
-        <Button
-          id='new'
-          className={this.state.className}
-          hidden={this.state.confirmed === false}
-          onClick={this.handleConfirm}
-        >
-          Confirm {this.state.label}
-        </Button>
-      </React.Fragment>
-    */
-
     if (this.state.confirmed !== true) {
       return (
         <Button
