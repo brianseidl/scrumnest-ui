@@ -212,7 +212,7 @@ class Story extends Component {
 
             <Form.Group controlId="owner">
               <Form.Label className="form-control-label row">
-                Assignee:
+                Assigned:
               </Form.Label>
               <Form.Control
                 as="select"

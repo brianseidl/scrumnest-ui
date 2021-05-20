@@ -88,7 +88,7 @@ class Stories extends Component {
               <tr className="table-primary">
                 <th>#</th>
                 <th>Title</th>
-                <th>Owner</th>
+                <th>Assigned</th>
                 <th>Status</th>
                 <th>Date Created</th>
               </tr>
