@@ -33,7 +33,9 @@ class LearnNests extends Component {
               <hr />
 
               {/* <!-- Post Content --> */}
-              <p className="lead">What is a Nest?</p>
+              <p className="lead">
+                <b>What is a Nest?</b>
+              </p>
               <p>
                 A nest is a virtual scrum board. For those readers who do not
                 know what a scrum board is, scrum boards in its most simple
@@ -46,7 +48,9 @@ class LearnNests extends Component {
                 board detailing the various statuses a user story can have.
               </p>
               <hr />
-              <p className="lead">How to create a Nest</p>
+              <p className="lead">
+                <b>How to create a Nest</b>
+              </p>
               <p>
                 To create a nest is very easy. Simply select the 'Create Nest'
                 option that is seen on the sidebar menu on any page from the
@@ -59,7 +63,7 @@ class LearnNests extends Component {
               </p>
               <img
                 className="img-fluid rounded"
-                src="/assets/new-nest-page.jpg"
+                src="/assets/new-nest-page.png"
                 height="300"
                 width="800"
                 alt="A new Nest."
