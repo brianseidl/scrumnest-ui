@@ -92,6 +92,7 @@ class Nest extends Component {
                     nestId={this.state.nestId}
                     key={column.id}
                     columnProperties={column}
+                    sprint={this.state.sprint}
                   />
                 </Col>
               ))}
@@ -112,20 +113,16 @@ class Nest extends Component {
   }
 
   componentDidMount() {
-    let graphqlParams = {
-      nestId: this.state.nestId,
-    };
-    if (this.state.sprint) {
-      graphqlParams.sprint = this.state.sprint;
-    }
     // get nest info on page load
-    API.graphql(graphqlOperation(queries.nest, graphqlParams)).then((value) => {
+    API.graphql(
+      graphqlOperation(queries.nest, { nestId: this.state.nestId })
+    ).then((value) => {
       this.setNestState(value.data.nest);
     });
 
     // add subscription here
     this.subscription = API.graphql(
-      graphqlOperation(subscriptions.nestStories, graphqlParams)
+      graphqlOperation(subscriptions.nestStories, { nestId: this.state.nestId })
     ).subscribe((value) => {
       if (value.value.data.nestStories)
         this.setNestState(value.value.data.nestStories);
@@ -173,30 +170,32 @@ class Nest extends Component {
 
     // Add the user stories
     nest.stories.forEach((story) => {
-      let storyData = {
-        id: story.storyId,
-        title: story.title,
-        owner: story.owner,
-        description: story.description || "",
-      };
+      if (!this.state.sprint || this.state.sprint === story.sprint) {
+        let storyData = {
+          id: story.storyId,
+          title: story.title,
+          owner: story.owner,
+          description: story.description || "",
+        };
 
-      // add that story data to the correct col
-      switch (story.status) {
-        case "TODO":
-          nestData[0].userStories.push(storyData);
-          break;
-        case "DEV":
-          nestData[1].userStories.push(storyData);
-          break;
-        case "QA":
-          nestData[2].userStories.push(storyData);
-          break;
-        case "COMPLETED":
-          nestData[3].userStories.push(storyData);
-          break;
-        default:
-          nestData[0].userStories.push(storyData);
-          break;
+        // add that story data to the correct col
+        switch (story.status) {
+          case "TODO":
+            nestData[0].userStories.push(storyData);
+            break;
+          case "DEV":
+            nestData[1].userStories.push(storyData);
+            break;
+          case "QA":
+            nestData[2].userStories.push(storyData);
+            break;
+          case "COMPLETED":
+            nestData[3].userStories.push(storyData);
+            break;
+          default:
+            nestData[0].userStories.push(storyData);
+            break;
+        }
       }
     });
 
@@ -288,9 +287,11 @@ class Nest extends Component {
   }
 
   openModal = () => {
-    showCreateStoryDialog(this.state.nestId).then((value) => {
-      // Do nothing...
-    });
+    showCreateStoryDialog(this.state.nestId, this.state.sprint).then(
+      (value) => {
+        // Do nothing...
+      }
+    );
   };
 }
 

@@ -308,7 +308,7 @@ li a.dropdown-toggle::after {
   margin-right: 0.5%;
 }
 
-.form-control.assignee-field {
+.form-control.dropdown-field {
   width: 12rem !important;
 }
 
