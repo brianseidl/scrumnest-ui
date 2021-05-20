@@ -30,7 +30,7 @@ class Team extends Component {
           <div className="container h-100">
             <div className="row h-100 align-items-center">
               <div className="col-lg-12">
-                <h1 className="team-title text-white mt-2 mb-2">Team Page</h1>
+                <h1 className="team-title text-white mt-2 mb-2">Teams</h1>
               </div>
             </div>
           </div>

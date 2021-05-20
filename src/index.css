@@ -308,7 +308,7 @@ li a.dropdown-toggle::after {
   margin-right: 0.5%;
 }
 
-.form-control.assignee-field {
+.form-control.dropdown-field {
   width: 12rem !important;
 }
 
@@ -459,3 +459,25 @@ li a.dropdown-toggle::after {
 }
 
 /* End User Story Page Classes */
+
+/* Dropdown CSS for User Story Priority */
+.priority-none {
+  background-color: #fff;
+}
+
+.priority-low:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+.priority-low {
+  background-color: rgb(0, 255, 76) !important;
+}
+.priority-medium {
+  background-color: rgb(251, 255, 0) !important;
+}
+.priority-high {
+  background-color: rgb(250, 124, 6) !important;
+}
+.priority-urgent {
+  background-color: rgb(255, 1, 1) !important;
+}

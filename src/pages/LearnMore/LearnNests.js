@@ -26,6 +26,10 @@ class LearnNests extends Component {
                 width="500"
                 alt="A sample scrum board."
               />
+              <p>
+                <br></br>
+                Diagram 1: Physical Scrum Board
+              </p>
               <hr />
 
               {/* <!-- Post Content --> */}
@@ -38,10 +42,10 @@ class LearnNests extends Component {
                 sprint.
               </p>
               <p>
-                The post's top image is a very simple depiction of a physical
-                scrum board detailing the various statuses a user story can
-                have.
+                Diagram 1 above is a very simple depiction of a physical scrum
+                board detailing the various statuses a user story can have.
               </p>
+              <hr />
               <p className="lead">How to create a Nest</p>
               <p>
                 To create a nest is very easy. Simply select the 'Create Nest'
@@ -58,8 +62,13 @@ class LearnNests extends Component {
                 src="/assets/new-nest-page.jpg"
                 height="300"
                 width="800"
-                alt="A new Nest"
+                alt="A new Nest."
               ></img>
+              <p>
+                <br></br>
+                Diagram 2: Scrum Nest - New Nest example
+              </p>
+
               <hr />
               <p>
                 Nests have the standard categories of 'To-Do', 'In Dev'
