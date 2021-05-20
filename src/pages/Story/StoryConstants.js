@@ -6,4 +6,6 @@ const PRIORITY = {
   values: ["NONE", "LOW", "MEDIUM", "HIGH", "URGENT"],
 };
 
-export { STATUS, PRIORITY };
+const NO_SPRINT = -1;
+
+export { STATUS, PRIORITY, NO_SPRINT };
