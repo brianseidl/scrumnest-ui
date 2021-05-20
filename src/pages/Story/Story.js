@@ -125,7 +125,7 @@ class Story extends Component {
                 className="m-2"
                 type="input"
                 value={
-                  !this.state.story.sprint ? 'None' : this.state.story.sprint
+                  !this.state.story.sprint ? "None" : this.state.story.sprint
                 }
                 readOnly
               ></Form.Control>
