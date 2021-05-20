@@ -40,7 +40,7 @@ class Nests extends Component {
                 return (
                   <tr id={nest.nestId} key={`${nest.nestId}`}>
                     <td>
-                      <a href={`/nests/${nest.nestId}`}>{nest.nestId}</a>
+                      <a href={`/nests/${nest.nestId}/`}>{nest.nestId}</a>
                     </td>
                     <td>{nest.name}</td>
                     <td>{nest.owner}</td>

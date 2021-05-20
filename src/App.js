@@ -1,10 +1,15 @@
 import React, { Component } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "./aws-exports";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import Layout from "./components/Layout/Layout";
 import "./index.css";
+
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.js";
+//import $ from 'jquery';
+//import Popper from 'popper.js';
 
 Amplify.configure(awsconfig);
 class App extends Component {

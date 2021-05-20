@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Pagination from "react-bootstrap/Pagination";
 
 import UserStoryContainer from "../../components/UserStory/UserStoryContainer";
 import { NEST_MODEL } from "./NestConstants";
 import { showCreateStoryDialog } from "../../components/Dialogs/service/DialogService";
+import SprintBar from "../../components/SprintBar/SprintBar";
 
 import * as qs from "query-string";
 
@@ -29,45 +29,47 @@ class Nest extends Component {
   };
 
   render() {
-    let pagItems = [];
-    let pag = (
-      <Pagination>
-        <Pagination.Item
-          key="all"
-          href={`/nests/${this.state.nestId}`}
-          active={this.state.sprint === null}
-        >
-          All
-        </Pagination.Item>
-        <Pagination.Prev />
-        {pagItems}
-        <Pagination.Next />
-      </Pagination>
-    );
-    if (this.state.nest) {
-      for (let i = 1; i <= this.state.nest.sprints; i++) {
-        pagItems.push(
-          <Pagination.Item
-            key={i}
-            href={`?sprint=${i}`}
-            active={i === this.state.sprint}
-          >
-            {i}
-          </Pagination.Item>
-        );
-      }
-    }
-
     return (
       <React.Fragment>
         <h1 className="display-6 text-black text-center nest-title">
           Nest: {this.state.nestName}
         </h1>
 
-        {/* TODO: Move this link to somewhere nicer */}
-        <a href={`/nests/${this.state.nestId}/stories`}>View all stories</a>
+        <Container fluid>
+          <Row>
+            <Col md="2">
+              <div className="btn-group">
+                <button class="btn btn-outline-primary active">Grid</button>
+                {this.state.sprint ? (
+                  <a
+                    class="btn btn-outline-primary"
+                    href={`/nests/${this.state.nestId}/stories/?sprint=${this.state.sprint}`}
+                  >
+                    List
+                  </a>
+                ) : (
+                  <a
+                    class="btn btn-outline-primary"
+                    href={`/nests/${this.state.nestId}/stories`}
+                  >
+                    List
+                  </a>
+                )}
+              </div>
+            </Col>
 
-        <Container>Filter by Sprint:{pag}</Container>
+            <Col>
+              {this.state.nest && (
+                <SprintBar
+                  sprints={this.state.nest.sprints}
+                  sprint={this.state.sprint}
+                  nestId={this.state.nestId}
+                  currentHref={`/nests/${this.state.nestId}/`}
+                />
+              )}
+            </Col>
+          </Row>
+        </Container>
 
         <Container id="board-container" className="container-height">
           <Row>
