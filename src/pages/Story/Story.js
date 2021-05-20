@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
-import { PRIORITY, STATUS } from "./StoryConstants";
+import { PRIORITY, STATUS, NO_SPRINT } from "./StoryConstants";
 import Comments from "../../components/Comments/Comments";
 import Attachments from "../../components/Attachment/Attachments";
 import _ from "lodash";
@@ -33,6 +33,7 @@ class Story extends Component {
       },
       enableAddComment: true,
       users: [],
+      sprints: ["None"],
     };
   }
 
@@ -65,6 +66,7 @@ class Story extends Component {
         nestId: this.state.nestId,
       })
     ).then((nest) => {
+      this.populateSprintsField(nest.data.nest.sprints);
       const users = nest.data.nest.users;
       const owner = { username: nest.data.nest.owner };
       users.push(owner);
@@ -116,19 +118,22 @@ class Story extends Component {
             </div>
 
             {/* To be implemented epic linked with field... for now just a placeholder */}
-            <Form.Group
-              className="row align-items-center"
-              controlId="sprint-linked"
-            >
+            <Form.Group className="row align-items-center" controlId="sprint">
               <Form.Label className="form-control-label">Sprint:</Form.Label>
               <Form.Control
-                className="m-2"
-                type="input"
+                className="m-2 dropdown-field"
+                as="select"
+                onChange={this.onChangeFieldState}
                 value={
-                  !this.state.story.sprint ? "None" : this.state.story.sprint
+                  this.state.story.sprint === NO_SPRINT
+                    ? "None"
+                    : this.state.story.sprint
                 }
-                readOnly
-              ></Form.Control>
+              >
+                {this.state.sprints.map((sprint) => {
+                  return <option key={`${sprint}-id`}>{sprint}</option>;
+                })}
+              </Form.Control>
             </Form.Group>
 
             <Form.Group controlId="description">
@@ -186,7 +191,7 @@ class Story extends Component {
                 as="select"
                 onChange={this.onChangeFieldState}
                 value={this.state.story.owner}
-                className="assignee-field"
+                className="dropdown-field"
               >
                 {this.state.users.map((user) => {
                   if (user) {
@@ -373,6 +378,9 @@ class Story extends Component {
   };
 
   getUpdateStoryData() {
+    const sprint =
+      this.state.story.sprint === "None" ? NO_SPRINT : this.state.story.sprint;
+
     const json = {
       nestId: this.state.nestId,
       storyId: this.state.storyId,
@@ -382,6 +390,7 @@ class Story extends Component {
       effort: this.state.story.effort,
       owner: this.state.story.owner,
       dateToBeCompleted: this.state.story.dateToBeCompleted,
+      sprint: sprint,
     };
 
     return json;
@@ -404,6 +413,16 @@ class Story extends Component {
     }
 
     return dateToBeCompleted;
+  }
+
+  populateSprintsField(numOfSprints) {
+    let sprintsList = _.clone(this.state.sprints);
+
+    for (let num = 1; num <= numOfSprints; num++) {
+      sprintsList.push(String(num));
+    }
+
+    this.setState({ sprints: sprintsList });
   }
 }
 
