@@ -20,10 +20,9 @@ class LearnTeams extends Component {
               <hr />
               {/* <!-- Preview Image --> */}
               <img
-                className="img-fluid rounded"
                 src="/assets/owner-view-team.PNG"
-                height="300"
-                width="800"
+                height="400"
+                width="900"
                 alt="Team page view from nest owner perspective."
               />
               <p>
@@ -34,7 +33,9 @@ class LearnTeams extends Component {
               <hr />
 
               {/* <!-- Post Content --> */}
-              <p className="lead">What are Teams?</p>
+              <p className="lead">
+                <b>What are Teams?</b>
+              </p>
               <p>
                 Teams quite literally represent the team of your project. To
                 navigate to the Teams page, click on the team icon on the top
@@ -54,10 +55,9 @@ class LearnTeams extends Component {
               <hr />
               {/* <!-- Preview Image --> */}
               <img
-                className="img-fluid rounded"
                 src="/assets/member-view-team.PNG"
-                height="300"
-                width="800"
+                height="400"
+                width="900"
                 alt="Team page view from nest member perspective."
               />
               <p>
@@ -66,7 +66,9 @@ class LearnTeams extends Component {
               </p>
               <hr />
 
-              <p className="lead">How to add members to a Nest?</p>
+              <p className="lead">
+                <b>How to add members to a Nest?</b>
+              </p>
               <p>
                 Adding users to a nest is a simple process. Enter their email
                 into the add teammate textbox and click the add button.
@@ -85,7 +87,9 @@ class LearnTeams extends Component {
               </p>
               <hr />
 
-              <p className="lead">How to remove members from a Nest?</p>
+              <p className="lead">
+                <b>How to remove members from a Nest?</b>
+              </p>
               <p>
                 The owner of the nest can remove both pending members and
                 members at any point by clicking the X button next to the email

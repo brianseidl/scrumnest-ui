@@ -28,12 +28,14 @@ class LearnUserStories extends Component {
               />
               <p>
                 <br></br>
-                Diagram 1: Scrum Nest - Nest Page with User Stories
+                Diagram 1: Scrum Nest - Nest Page with User Stories Grid View
               </p>
               <hr />
 
               {/* <!-- Post Content --> */}
-              <p className="lead">What is a User Story?</p>
+              <p className="lead">
+                <b>What is a User Story?</b>
+              </p>
               <p>
                 A user story is a unit of work in an agile framework, such as
                 scrum. It expressed an end goal task from a software user's
@@ -50,7 +52,9 @@ class LearnUserStories extends Component {
 
               <hr />
 
-              <p className="lead">How to create a User Story?</p>
+              <p className="lead">
+                <b>How to create a User Story?</b>
+              </p>
               <p>
                 To create a user story, select the "+" button next to the
                 "To-Do" title of the first column.
@@ -64,21 +68,27 @@ class LearnUserStories extends Component {
 
               <hr />
 
-              <p className="lead">Filter User Stories by Sprint</p>
+              <p className="lead">
+                <b> Filter User Stories by Sprint </b>
+              </p>
               <p>
                 User Stories can be filtered by Sprint. In scrum, a sprint is a
                 time duration in which specific tasks have to be completed,
                 normally numbered as Sprint 1, 2, 3, etc.
               </p>
               <p>
-                Using the "Filter by Sprint" option above the Nest table, a user
+                Using the "All Sprints" dropdown above the Nest table, a user
                 can filter the display to show all user stories (default) or
-                user stories for a specific sprint.
+                user stories for a specific sprint. By selecting the "New
+                Sprint" option in the dropdown, a new sprint will be created
+                defaulted to the following number of the latest sprint.
               </p>
 
               <hr />
 
-              <p className="lead">How to view and edit a User Story?</p>
+              <p className="lead">
+                <b>How to view and edit a User Story?</b>
+              </p>
               <p>
                 To view and edit details of a specific user story click on the
                 blue "View" button on the user story card. This will redirect
@@ -123,10 +133,9 @@ class LearnUserStories extends Component {
                 to the user story.
               </p>
               <img
-                className="img-fluid rounded"
                 src="/assets/view-user-story.PNG"
-                height="300"
-                width="800"
+                height="550"
+                width="900"
                 alt="Edit user story view."
               ></img>
               <p>
@@ -135,11 +144,34 @@ class LearnUserStories extends Component {
               </p>
 
               <hr />
-              <p className="lead">How to delete a User Story?</p>
+              <p className="lead">
+                <b>How to delete a User Story?</b>
+              </p>
               <p>
                 To delete a user story, click on the red "Delete" button on the
                 user story card. A confirmation dialog will appear, hit the
                 'Yes' button to confirm.
+              </p>
+
+              <hr />
+              <p className="lead">
+                <b>List View</b>
+              </p>
+              <p>
+                To view the user stories of a nest as a list instead of a grid.
+                Click on the "List" option next to grid on the top left of the
+                Nest table. The view will as shown in Diagram 3 below.
+              </p>
+
+              <img
+                src="/assets/view-user-story-list.PNG"
+                height="291"
+                width="900"
+                alt="User story list view."
+              ></img>
+              <p>
+                <br></br>
+                Diagram 3: Scrum Nest - Nest Page with User Stories List View
               </p>
               <hr />
             </div>
