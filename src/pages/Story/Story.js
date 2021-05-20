@@ -124,7 +124,9 @@ class Story extends Component {
               <Form.Control
                 className="m-2"
                 type="input"
-                value={!this.state.story.sprint ? 'None' : this.state.story.sprint}
+                value={
+                  !this.state.story.sprint ? 'None' : this.state.story.sprint
+                }
                 readOnly
               ></Form.Control>
             </Form.Group>
